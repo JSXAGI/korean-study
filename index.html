@@ -1,42 +1,57 @@
-
-
 <!doctype html>
 <meta name="google" content="notranslate">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>韓国語英語日本語三か国語同時学習あぷり</title>
+  <title>韓国語学習</title>
    <style>
     :root {
+      --bg-image: url('https://raw.githubusercontent.com/JSXAGI/korean-study/main/korean.jpeg');
       --bg-color: #fef3c7;
-      --surface-color: #ffffff;
+      --surface-color: rgba(255, 255, 255, 0.8);
       --text-color: #1e293b;
       --primary-color: #f59e0b;
       --secondary-color: #8b5cf6;
       --accent-color: #10b981;
       --header-height: 100px;
-    }
+    }  
     * { box-sizing: border-box; font-family: 'Segoe UI', Meiryo, sans-serif; }
-    body, html { margin: 0; padding: 40px; height: 100%; background-color: var(--bg-color); color: var(--text-color); overflow-x: hidden; }
+      body, html { 
+      margin: 0; 
+      padding: 0; /* paddingを0にして、container側で調整します */
+      min-height: 100vh;
+      background-color: var(--bg-color);
+      background-image: var(--bg-image);
+      background-size: cover;
+      background-position: left 20% center !important;
+      background-attachment: fixed; /* 背景を固定 */
+      background-repeat: no-repeat;
+      color: var(--text-color); 
+      overflow-x: hidden; 
+      }
 
     .app-header {
       position: fixed; top: 0; left: 0; right: 0; height: var(--header-height);
-      background-color: var(--primary-color); display: flex; align-items: center; padding: 0 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index: 1000;
-    }
-    .home-link {
-      background: white; color: var(--primary-color); padding: 10px 20px; border-radius: 50px;
-      font-weight: bold; font-size: 1.1rem; border: none; cursor: pointer; display: flex; align-items: center; gap: 8px;
-    }
+      background-color: #ffffff00; display: flex; align-items: center; padding: 0 0px;
+	  }
+	  .home-link {
+	  pointer-events: auto;
+      position: absolute !important;
+      left: 20px !important; /* 50だと寄りすぎなので20に */
+      top: 15px !important;
+      background: white; color: var(--primary-color); padding: 3px 3px; border-radius: 5px;
+      font-weight: bold; font-size: 2rem; border: none; cursor: pointer; display: flex; align-items: center; gap: 8px;
+	  }
 
-    .main-content { margin-top: calc(var(--header-height) + 20px); padding: 20px; max-width: 800px; margin: auto; }
-    .card { background: var(--surface-color); border-radius: 20px; padding: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 4px solid #fff; margin-bottom: 20px; }
+    .main-content { margin-top: calc(var(--header-height) + 20px); padding: 100px; max-width: 800px; margin: auto; }
+    
+	.card { background: var(--surface-color); border-radius: 20px; padding: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 4px solid #fff; margin-bottom: 20px; }
     
     .level-selector { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 15px 0; }
-    .btn-lvl { padding: 12px; border-radius: 12px; border: 3px solid #cbd5e1; font-weight: bold; cursor: pointer; background: #f1f5f9; }
+    .btn-lvl { padding: 10px; border-radius: 12px; border: 3px solid #cbd5e1; font-weight: bold; cursor: pointer; background: #f1f5f9; }
     .btn-lvl.active { border-color: var(--primary-color); background: white; color: var(--primary-color); transform: scale(1.05); }
-
-    .btn { cursor: pointer; border: none; border-radius: 12px; padding: 15px; font-weight: bold; font-size: 1.1rem; display: inline-flex; align-items: center; justify-content: center; transition: 0.2s; }
+    .btn { cursor: pointer; border: none; border-radius: 12px; padding: 10px; font-weight: bold; font-size: 1.1rem; 
+	display: inline-flex; align-items: center; justify-content: center; transition: 0.2s; }
     .btn-primary { background-color: var(--primary-color); color: white; width: 100%; }
     
     .lang-row { background: #f8fafc; padding: 10px 15px; border-radius: 15px; margin-bottom: 8px; border: 1px solid #e2e8f0; }
@@ -134,8 +149,8 @@ body {
   border-color: #f59e0b !important;
 }
 
-/* 2. 【文法学習】スワヒリ語（メイン）をシャープで見やすく調整 */
-[id^="g-sw-"] {
+/* 2. 【文法学習】韓国語（メイン）をシャープで見やすく調整 */
+[id^="g-ko-"] {
   color: #9a3412 !important;    /* 視認性の高い濃い色 */
   font-size: 1.5rem !important; /* ほどよい大きさに微調整 */
   font-weight: 600 !important;  /* ★太さを抑えて文字の潰れを防止 */
@@ -152,7 +167,7 @@ body {
   color: #1e3a8a !important;    /* 濃い青 */
 }
 
-/* 4. 【文法学習】スワヒリ語の「解説文（日本語）」を真っ黒にして読みやすく */
+/* 4. 【文法学習】韓国語の「解説文（日本語）」を真っ黒にして読みやすく */
 .card span[style*="color: #666"],
 .card div[style*="margin-top: 10px"] span {
   color: #000000 !important;    /* 最高のコントラスト（黒） */
@@ -217,7 +232,7 @@ body {
         border-radius: 12px !important;
         position: static !important; /* 重なり防止 */
         transform: none !important;
-        margin: 0 !important;
+        margin: 0px !important;
     }
 
     /* 5. 下の「単語・文法」ボタンを横並びで大きく */
@@ -312,10 +327,10 @@ body {
 <body>
  <header class="app-header">
     <button class="home-link" onclick="showView('home')">
-      🏠 Home
+      🏠
     </button>
     
-    <div style="flex-grow: 1; text-align: center; color: white; font-weight: bold; font-size: 1.2rem; margin-right: 15px;" id="mode-title">Learning App</div>
+    <div style="flex-grow: 1; text-align: center; color: #EF4123; text-shadow: 2px 2px 0px #4d7b80, 2px -2px 0px #4d7b80, -2px 2px 0px #4d7b80, -2px -2px 0px #4d7b80, 0px 0px 12px rgba(0,0,0,0.9); font-weight: bold; font-size: 2rem; margin-right: 15px;" id="mode-title">韓国語学習</div>
   </header>
 
   <main class="main-content">
@@ -340,11 +355,11 @@ body {
     <div id="vocabulary-view" class="hidden">
       <div class="card text-center">
         <div><span class="badge" id="v-lvl-badge"></span><span class="badge" id="v-cat-badge" style="background:var(--accent-color)"></span></div>
-        <div id="v-emoji" style="font-size: 6rem; margin: 15px 0;"></div>
+        <div id="v-emoji" style="font-size: 5rem; margin: 0px 0;"></div>
         <div class="lang-row"><div class="lang-label">English</div><div class="lang-text"><span id="v-en"></span><button class="btn-speak" onclick="speak('en')">🔊</button></div></div>
-        <div class="lang-row"><div class="lang-label">韓国語(ハングル)</div><div class="lang-text"><span id="v-sw"></span><button class="btn-speak" onclick="speak('sw')">🔊</button></div></div>
+        <div class="lang-row"><div class="lang-label">韓国語(ハングル)</div><div class="lang-text"><span id="v-ko"></span><button class="btn-speak" onclick="speak('ko')">🔊</button></div></div>
         <div class="lang-row"><div class="lang-label">日本語</div><div class="lang-text"><span id="v-ja"></span><button class="btn-speak" onclick="speak('ja')">🔊</button></div></div>
-        <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 10px; margin-top: 20px;">
+        <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 5px; margin-top: 5px;">
           <button class="btn" style="background: #e2e8f0;" onclick="changeWord(-1)">◀ BACK</button>
           <button class="btn btn-primary" onclick="changeWord(1)">NEXT ▶</button>
         </div>
@@ -902,7 +917,7 @@ function speak(lang){
   let text = el.innerText;
   
   // 外国語（北京語・韓国語）または日本語の場合、不要な文字を掃除
-  if(lang === 'sw'){
+  if(lang === 'ko'){
     // アルファベットとピンイン記号（āáなど）を削除
     text = text.replace(/[a-zA-Zāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜü\s]+/g, '');
   } else if(lang === 'ja'){
@@ -941,7 +956,7 @@ function speakGrammar(id, lang){
   let text = el.innerText;
 
   // 文法学習でも同様に不要な文字を掃除
-  if(lang === 'zh' || lang === 'sw'){ 
+  if(lang === 'ko' || lang === 'ko'){ 
     text = text.replace(/[a-zA-Zāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜü\s]+/g, '');
   } else if(lang === 'ja'){
     text = text.replace(/\(.*\)/g, '');
@@ -1003,7 +1018,7 @@ function updateWord(){
   if(!list.length)return;
   const d=list[vIndex];
   document.getElementById('v-en').innerText=d.en;
-  document.getElementById('v-sw').innerText=d.sw;
+  document.getElementById('v-ko').innerText=d.sw;
   document.getElementById('v-ja').innerText=d.ja;
   document.getElementById('v-emoji').innerText=d.emoji;
   document.getElementById('v-cat-badge').innerText=d.category;
@@ -1030,8 +1045,8 @@ function showGrammarList(){
         <div class="lang-row">
           <div class="lang-label">韓国語(ハングル)</div>
           <div class="lang-text">
-            <span id="g-sw-${i}">${item.sw_phrase}</span>
-            <button class="btn-speak" onclick="speakGrammar('g-sw-${i}','zh')">🔊</button>
+            <span id="g-ko-${i}">${item.sw_phrase}</span>
+            <button class="btn-speak" onclick="speakGrammar('g-ko-${i}','ko')">🔊</button>
           </div>
         </div>
 
