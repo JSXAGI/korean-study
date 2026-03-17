@@ -318,8 +318,9 @@ body {
         height: 32px !important;
     }
 }
-
-/* 追加ここまで */
+    /* クエストエリア */
+    #quest-area { border: 4px solid var(--secondary-color); background: #fff; }
+	
   </style>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 </head>
@@ -333,7 +334,7 @@ body {
     <div style="flex-grow: 1; text-align: center; color: #EF4123; text-shadow: 2px 2px 0px #4d7b80, 2px -2px 0px #4d7b80, -2px 2px 0px #4d7b80, -2px -2px 0px #4d7b80, 0px 0px 12px rgba(0,0,0,0.9); font-weight: bold; font-size: 2rem; margin-right: 15px;" id="mode-title">韓国語学習</div>
   </header>
 
-  <main class="main-content">
+<main class="main-content">
     <div id="home-view">
       <div class="card text-center">
         <h2>1. Level / レベル選択</h2>
@@ -350,9 +351,14 @@ body {
           <button class="btn btn-primary" style="background-color: var(--secondary-color);" onclick="showView('grammar-choice')">✏️ Grammar<br>文法</button>
         </div>
       </div>
-    </div>
 
-    <div id="vocabulary-view" class="hidden">
+      <div id="quest-area" class="card text-center">
+        <h3 style="margin:0; color:var(--secondary-color);">🎧 Listening Quest</h3>
+        <div id="q-box" style="margin: 15px 0; font-size: 1.2rem; min-height: 50px;"></div>
+        <div id="a-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;"></div>
+        <button id="q-start" class="btn btn-primary" style="background:#059669; margin-top:15px;" onclick="startQuest()">クエスト開始</button>
+      </div>
+    </div> <div id="vocabulary-view" class="hidden">
       <div class="card text-center">
         <div><span class="badge" id="v-lvl-badge"></span><span class="badge" id="v-cat-badge" style="background:var(--accent-color)"></span></div>
         <div id="v-emoji" style="font-size: 5rem; margin: 0px 0;"></div>
@@ -361,7 +367,8 @@ body {
         <div class="lang-row"><div class="lang-label">日本語</div><div class="lang-text"><span id="v-ja"></span><button class="btn-speak" onclick="speak('ja')">🔊</button></div></div>
         <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 5px; margin-top: 5px;">
           <button class="btn" style="background: #e2e8f0;" onclick="changeWord(-1)">◀ BACK</button>
-          <button class="btn btn-primary" onclick="changeWord(1)">NEXT ▶</button>
+<button class="btn" style="background: #fef3c7;" onclick="shuffleWords()">🔀 SHUFFLE</button>
+<button class="btn btn-primary" onclick="changeWord(1)">NEXT ▶</button>
         </div>
       </div>
     </div>
@@ -384,8 +391,7 @@ body {
            <button class="btn" style="padding: 5px 15px; background: #e2e8f0;" onclick="showView('grammar-choice')">← 戻る</button>
            <span class="badge" id="g-lvl-badge"></span>
         </div>
-        <div id="grammar-list">
-          </div>
+        <div id="grammar-list"></div>
       </div>
     </div>
   </main>
@@ -1025,10 +1031,35 @@ function updateWord(){
 }
 
 function changeWord(step){
-  const list=vocabularyData.filter(d=>d.level===currentLevel);
-  if(!list.length)return;
-  vIndex=(vIndex+step+list.length)%list.length;
+  // 現在のレベルの単語リストを取得
+  const list = vocabularyData.filter(d => d.level === currentLevel);
+  if(!list.length) return;
+  // vIndex を更新
+  vIndex = (vIndex + step + list.length) % list.length;
   updateWord();
+}
+
+// ここから shuffleWords を新しく配置
+function shuffleWords() {
+    console.log("シャッフル開始"); // 動作確認用
+    
+    // 現在のレベルの単語リストを取得
+    const list = vocabularyData.filter(d => d.level === currentLevel);
+    
+    if (list.length < 2) {
+        alert("シャッフルする単語が足りません。");
+        return;
+    }
+
+    // ランダムに1つ選ぶ（一番シンプルな方法に変更しました）
+    let newIndex;
+    do {
+        newIndex = Math.floor(Math.random() * list.length);
+    } while (newIndex === vIndex && list.length > 1); // 今と同じ単語にならないように
+
+    vIndex = newIndex;
+    updateWord();
+    alert("🔀 単語をシャッフルしました！");
 }
 
 function showGrammarList(){
@@ -1072,6 +1103,68 @@ function showGrammarList(){
     });
 }
 
+// クエスト
+let qTarget = null;
+
+function startQuest() {
+    // 現在のレベルの単語を取得
+    const list = vocabularyData.filter(d => d.level === currentLevel);
+    if (list.length < 4) {
+        alert("単語が足りません。");
+        return;
+    }
+
+    // 正解をランダムに決定
+    qTarget = list[Math.floor(Math.random() * list.length)];
+    
+    // スピーカーボタンを表示（大きくして押しやすくしました）
+    document.getElementById('q-box').innerHTML = 
+        `<button class="btn-speak" onclick="speakQ()" style="width:100px; height:100px; font-size:3rem !important;">🔊</button>`;
+    
+    // 選択肢（正解1つ + 不正解3つ）を作成
+    let choices = [qTarget];
+    while(choices.length < 4) {
+        let r = list[Math.floor(Math.random() * list.length)];
+        if(!choices.includes(r)) choices.push(r);
+    }
+    choices.sort(() => Math.random() - 0.5); // シャッフル
+
+    // 回答ボタンを画面に作る
+    const area = document.getElementById('a-grid');
+    area.innerHTML = "";
+    choices.forEach(c => {
+        const b = document.createElement('button');
+        b.className = 'btn btn-lvl';
+        b.style.minHeight = '70px';
+        b.innerText = c.ja; // 日本語を表示
+        b.onclick = () => checkAnswer(c === qTarget);
+        area.appendChild(b);
+    });
+    
+    // 自動で最初の音を鳴らす
+    speakQ();
+}
+
+// ★ここが重要：韓国語を発声させる関数
+function speakQ() {
+    if (!qTarget) return;
+    const msg = new SpeechSynthesisUtterance();
+    // 韓国語のテキストを取得（ハングル部分のみ抽出）
+    msg.text = qTarget.sw.split(' ')[0]; 
+    msg.lang = 'ko-KR'; // 韓国語に設定
+    msg.rate = 0.8;      // 少しゆっくりめに再生
+    window.speechSynthesis.speak(msg);
+}
+
+// 正解・不正解の判定
+function checkAnswer(isCorrect) {
+    if (isCorrect) {
+        alert("🎉 正解！ Correct!");
+        startQuest(); // 次の問題へ
+    } else {
+        alert("❌ 残念！ Try again.");
+    }
+}
 </script>
 </body>
 </html>
