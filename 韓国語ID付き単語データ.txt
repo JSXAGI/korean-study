@@ -1,0 +1,197 @@
+const vocabularyData = [
+  /* --- 初級 (Beginner) --- */
+  // 生活・家 (Life / Home)
+  { id: "V-001", en: "Family", sw: "가족 gajok", ja: "家族(かぞく)", emoji: "👨‍👩‍👧‍👦", level: "Beginner", category: "Life" },
+  { id: "V-002", en: "Home", sw: "집 jip", ja: "家(いえ)", emoji: "🏠", level: "Beginner", category: "Life" },
+  { id: "V-003", en: "Kitchen", sw: "부엌 bueok", ja: "台所(だいどころ)", emoji: "🍳", level: "Beginner", category: "Life" },
+  { id: "V-004", en: "Window", sw: "창문 changmun", ja: "窓(まど)", emoji: "🪟", level: "Beginner", category: "Life" },
+  { id: "V-005", en: "Door", sw: "문 mun", ja: "扉(とびら)", emoji: "🚪", level: "Beginner", category: "Life" },
+  { id: "V-006", en: "Friend", sw: "친구 chingu", ja: "友達(ともだち)", emoji: "🤝", level: "Beginner", category: "Life" },
+  { id: "V-007", en: "Money", sw: "돈 don", ja: "お金(おかね)", emoji: "💰", level: "Beginner", category: "Life" },
+  { id: "V-008", en: "Shop", sw: "가게 gage", ja: "店(みせ)", emoji: "🏪", level: "Beginner", category: "Life" },
+  { id: "V-009", en: "Market", sw: "시장 sijang", ja: "市場(いちば)", emoji: "🛒", level: "Beginner", category: "Life" },
+
+  // 家族 (Family)
+  { id: "V-010", en: "Father", sw: "아버지 abeoji", ja: "父(ちち)", emoji: "👨", level: "Beginner", category: "Family" },
+  { id: "V-011", en: "Mother", sw: "어머니 eomeoni", ja: "母(はは)", emoji: "👩", level: "Beginner", category: "Family" },
+  { id: "V-012", en: "Child", sw: "아이 ai", ja: "子供(こども)", emoji: "🧒", level: "Beginner", category: "Family" },
+
+  // 教育・学校 (Education / School)
+  { id: "V-013", en: "Teacher", sw: "선생님 seonsaengnim", ja: "先生(せんせい)", emoji: "👩‍🏫", level: "Beginner", category: "Education" },
+  { id: "V-014", en: "Student", sw: "학생 haksaeng", ja: "学生(がくせい)", emoji: "🎓", level: "Beginner", category: "Education" },
+  { id: "V-015", en: "School", sw: "학교 hakgyo", ja: "学校(がっこう)", emoji: "🏫", level: "Beginner", category: "Education" },
+  
+  // 物 (Object)
+  { id: "V-016", en: "Book", sw: "책 chaek", ja: "本(ほん)", emoji: "📘", level: "Beginner", category: "Object" },
+  { id: "V-017", en: "Pen", sw: "펜 pen", ja: "ペン", emoji: "🖊️", level: "Beginner", category: "Object" },
+  { id: "V-018", en: "Desk", sw: "책상 chaeksang", ja: "机(つくえ)", emoji: "💺", level: "Beginner", category: "Object" },
+  { id: "V-019", en: "Chair", sw: "의자 uija", ja: "椅子(いす)", emoji: "🪑", level: "Beginner", category: "Object" },
+  { id: "V-020", en: "Phone", sw: "전화 jeonhwa", ja: "電話(でんわ)", emoji: "📱", level: "Beginner", category: "Object" },
+  { id: "V-021", en: "Bag", sw: "가방 gabang", ja: "かばん", emoji: "👜", level: "Beginner", category: "Object" },
+
+  // 飲食 (Food)
+  { id: "V-022", en: "Food", sw: "음식 eumsik", ja: "食べ物(たべもの)", emoji: "🍚", level: "Beginner", category: "Food" },
+  { id: "V-023", en: "Water", sw: "물 mul", ja: "水(みず)", emoji: "💧", level: "Beginner", category: "Food" },
+  { id: "V-024", en: "Rice", sw: "밥 bap", ja: "ご飯(ごはん)", emoji: "🍚", level: "Beginner", category: "Food" },
+  { id: "V-025", en: "Bread", sw: "빵 ppang", ja: "パン", emoji: "🍞", level: "Beginner", category: "Food" },
+  { id: "V-026", en: "Fruit", sw: "과일 gwail", ja: "果物(くだもの)", emoji: "🍎", level: "Beginner", category: "Food" },
+  { id: "V-027", en: "Tea", sw: "차 cha", ja: "お茶(おちゃ)", emoji: "🍵", level: "Beginner", category: "Food" },
+  { id: "V-028", en: "Milk", sw: "우유 uyu", ja: "牛乳(ぎゅうにゅう)", emoji: "🥛", level: "Beginner", category: "Food" },
+  
+  // 時間 (Time) - 重複を統合
+  { id: "V-029", en: "Morning", sw: "아침 achim", ja: "朝(あさ)", emoji: "🌅", level: "Beginner", category: "Time" }, 
+  { id: "V-030", en: "Noon", sw: "점심 jeomsim", ja: "昼(ひる)", emoji: "☀️", level: "Beginner", category: "Time" }, 
+  { id: "V-031", en: "Evening", sw: "저녁 jeonyeok", ja: "夕方(ゆうがた)", emoji: "🌇", level: "Beginner", category: "Time" },   
+  { id: "V-032", en: "Night", sw: "밤 bam", ja: "夜(よる)", emoji: "🌙", level: "Beginner", category: "Time" }, 
+  { id: "V-033", en: "Today", sw: "오늘 oneul", ja: "今日(きょう)", emoji: "📅", level: "Beginner", category: "Time" }, 
+  { id: "V-034", en: "Tomorrow", sw: "내일 naeil", ja: "明日(あした)", emoji: "📆", level: "Beginner", category: "Time" }, 
+  { id: "V-035", en: "Now", sw: "지금 jigeum", ja: "今(いま)", emoji: "⏱️", level: "Beginner", category: "Time" }, 
+  { id: "V-036", en: "Week", sw: "주 ju", ja: "週(しゅう)", emoji: "📆", level: "Beginner", category: "Time" }, 
+  { id: "V-037", en: "Month", sw: "달 dal", ja: "月(つき)", emoji: "🗓️", level: "Beginner", category: "Time" }, 
+  { id: "V-038", en: "Year", sw: "년 nyeon", ja: "年(とし)", emoji: "📘", level: "Beginner", category: "Time" }, 
+
+  // 場所・交通 (Place / Transport)
+  { id: "V-039", en: "Street", sw: "거리 geori", ja: "通り(とおり)", emoji: "🛣️", level: "Beginner", category: "Place" }, 
+  { id: "V-040", en: "City", sw: "도시 dosi", ja: "都市(とし)", emoji: "🏙️", level: "Beginner", category: "Place" }, 
+  { id: "V-041", en: "Country", sw: "나라 nara", ja: "国(くに)", emoji: "🌏", level: "Beginner", category: "Place" }, 
+  { id: "V-042", en: "Park", sw: "공원 gongwon", ja: "公園(こうえん)", emoji: "🌳", level: "Beginner", category: "Place" }, 
+  { id: "V-043", en: "Hospital", sw: "병원 byeongwon", ja: "病院(びょういん)", emoji: "🏥", level: "Beginner", category: "Place" }, 
+  { id: "V-044", en: "Bus", sw: "버스 beoseu", ja: "バス", emoji: "🚌", level: "Beginner", category: "Transport" }, 
+  { id: "V-045", en: "Train", sw: "기차 gicha", ja: "電車(でんしゃ)", emoji: "🚆", level: "Beginner", category: "Transport" }, 
+  { id: "V-046", en: "Station", sw: "역 yeok", ja: "駅(えき)", emoji: "🚉", level: "Beginner", category: "Transport" }, 
+
+  // 基本動詞 (Action)
+  { id: "V-047", en: "Walk", sw: "걷다 geotda", ja: "歩く(あるく)", emoji: "🚶", level: "Beginner", category: "Action" }, 
+  { id: "V-048", en: "Run", sw: "달리다 dallida", ja: "走る(はしる)", emoji: "🏃", level: "Beginner", category: "Action" }, 
+  { id: "V-049", en: "Eat", sw: "먹다 meokda", ja: "食べる(たべる)", emoji: "🍴", level: "Beginner", category: "Action" }, 
+  { id: "V-050", en: "Drink", sw: "마시다 masida", ja: "飲む(のむ)", emoji: "🥤", level: "Beginner", category: "Action" }, 
+  { id: "V-051", en: "Sleep", sw: "자다 jada", ja: "寝る(ねる)", emoji: "😴", level: "Beginner", category: "Action" },
+  { id: "V-052", en: "Buy", sw: "사다 sada", ja: "買う(かう)", emoji: "🛍️", level: "Beginner", category: "Action" }, 
+  { id: "V-053", en: "Wait", sw: "기다리다 gidarida", ja: "待つ(まつ)", emoji: "⏳", level: "Beginner", category: "Action" }, 
+
+  // 感情・状態 (Feeling)
+  { id: "V-054", en: "Happy", sw: "행복하다 haengbokhada", ja: "幸せ(しあわせ)", emoji: "😊", level: "Beginner", category: "Feeling" }, 
+  { id: "V-055", en: "Sad", sw: "슬프다 seulpeuda", ja: "悲しい(かなしい)", emoji: "😢", level: "Beginner", category: "Feeling" }, 
+  { id: "V-056", en: "Hot", sw: "덥다 deopda", ja: "暑い(あつい)", emoji: "🔥", level: "Beginner", category: "Feeling" }, 
+  { id: "V-057", en: "Cold", sw: "춥다 chupda", ja: "寒い(さむい)", emoji: "❄️", level: "Beginner", category: "Feeling" },
+  { id: "V-058", en: "Easy", sw: "쉽다 swipda", ja: "簡単(かんたん)", emoji: "👌", level: "Beginner", category: "Feeling" }, 
+  { id: "V-059", en: "Difficult", sw: "어렵다 eoryeopda", ja: "難しい(むずかしい)", emoji: "🤔", level: "Beginner", category: "Feeling" }, 
+
+  /* --- 中級 (Intermediate) --- */
+  { id: "V-060", en: "Travel", sw: "여행 yeohaeng", ja: "旅行(りょこう)", emoji: "✈️", level: "Intermediate", category: "Life" }, 
+  { id: "V-061", en: "Experience", sw: "경험 gyeongheom", ja: "経験(けいけん)", emoji: "🧠", level: "Intermediate", category: "Life" }, 
+  { id: "V-062", en: "Decision", sw: "결정 gyeoljeong", ja: "決定", emoji: "✅", level: "Intermediate", category: "Work" }, 
+  { id: "V-063", en: "Problem", sw: "문제 munje", ja: "問題", emoji: "❗", level: "Intermediate", category: "Life" }, 
+  { id: "V-064", en: "Culture", sw: "문화 munhwa", ja: "文化", emoji: "🎎", level: "Intermediate", category: "Life" },
+  
+  /* --- 中級 (Intermediate) 続き --- */
+  // 仕事・ビジネス (Work) - 重複を1つに集約
+  { id: "V-065", en: "Company", sw: "회사 hoesa", ja: "会社(かいしゃ)", emoji: "🏢", level: "Intermediate", category: "Work" },
+  { id: "V-066", en: "Job", sw: "직업 jig-eop", ja: "職業(しょくぎょう)", emoji: "🧑‍💼", level: "Intermediate", category: "Work" },
+  { id: "V-067", en: "Work", sw: "일 il", ja: "仕事(しごと)", emoji: "💼", level: "Intermediate", category: "Work" },
+  { id: "V-068", en: "Meeting", sw: "회의 hoeui", ja: "会議(かいぎ)", emoji: "📊", level: "Intermediate", category: "Work" },
+  { id: "V-069", en: "Project", sw: "프로젝트 peurojekteu", ja: "企画(きかく)", emoji: "📁", level: "Intermediate", category: "Work" },
+  { id: "V-070", en: "Plan", sw: "계획 gyehoek", ja: "計画(けいかく)", emoji: "📝", level: "Intermediate", category: "Work" },
+  { id: "V-071", en: "Schedule", sw: "일정 iljeong", ja: "予定(よてい)", emoji: "📅", level: "Intermediate", category: "Work" },
+  { id: "V-072", en: "Deadline", sw: "마감 magam", ja: "締切(しめきり)", emoji: "⏰", level: "Intermediate", category: "Work" },
+  { id: "V-073", en: "Responsibility", sw: "책임 chaegim", ja: "責任(せきにん)", emoji: "⚖️", level: "Intermediate", category: "Work" },
+  { id: "V-074", en: "Result", sw: "결과 gyeolgwa", ja: "結果(けっか)", emoji: "📈", level: "Intermediate", category: "Work" },
+  { id: "V-075", en: "Agreement", sw: "동의 dongui", ja: "同意", emoji: "✍️", level: "Intermediate", category: "Work" },
+  { id: "V-076", en: "Request", sw: "요청 yocheong", ja: "依頼", emoji: "📨", level: "Intermediate", category: "Work" },
+  { id: "V-077", en: "Response", sw: "응답 eungdap", ja: "応答", emoji: "📩", level: "Intermediate", category: "Work" },
+
+  // 社会・抽象概念 (Society / Abstract)
+  { id: "V-078", en: "Society", sw: "사회 sahoe", ja: "社会(しゃかい)", emoji: "🌍", level: "Intermediate", category: "Society" },
+  { id: "V-079", en: "Economy", sw: "경제 gyeongje", ja: "経済(けいざい)", emoji: "💹", level: "Intermediate", category: "Society" },
+  { id: "V-080", en: "Politics", sw: "정치 jeongchi", ja: "政治(せいじ)", emoji: "🏛️", level: "Intermediate", category: "Society" },
+  { id: "V-081", en: "Law", sw: "법 beop", ja: "法律(ほうりつ)", emoji: "⚖️", level: "Intermediate", category: "Society" },
+  { id: "V-082", en: "Environment", sw: "환경 hwangyeong", ja: "環境(かんきょう)", emoji: "🌱", level: "Intermediate", category: "Society" },
+  { id: "V-083", en: "Tradition", sw: "전통 jeontong", ja: "伝統(でんとう)", emoji: "🏮", level: "Intermediate", category: "Society" },
+  { id: "V-084", en: "History", sw: "역사 yeoksa", ja: "歴史(れきし)", emoji: "📜", level: "Intermediate", category: "Society" },
+
+  // 技術・思考 (Technology / Thinking)
+  { id: "V-085", en: "Technology", sw: "기술 gisul", ja: "技術(ぎじゅつ)", emoji: "💻", level: "Intermediate", category: "Technology" },
+  { id: "V-086", en: "Information", sw: "정보 jeongbo", ja: "情報(じょうほう)", emoji: "ℹ️", level: "Intermediate", category: "Technology" },
+  { id: "V-087", en: "Data", sw: "데이터 deiteo", ja: "データ", emoji: "📊", level: "Intermediate", category: "Technology" },
+  { id: "V-088", en: "Solution", sw: "해결 haegyeol", ja: "解決", emoji: "💡", level: "Intermediate", category: "Thinking" },
+  { id: "V-089", en: "Reason", sw: "이유 iyu", ja: "理由(りゆう)", emoji: "🧩", level: "Intermediate", category: "Thinking" },
+  { id: "V-090", en: "Opinion", sw: "의견 uigyeon", ja: "意見(いけん)", emoji: "💬", level: "Intermediate", category: "Thinking" },
+  { id: "V-091", en: "Choice", sw: "선택 seontaek", ja: "選択", emoji: "🔀", level: "Intermediate", category: "Thinking" },
+  { id: "V-092", en: "Goal", sw: "목표 mokpyo", ja: "目標", emoji: "🎯", level: "Intermediate", category: "Life" },
+
+  // 生活習慣・健康 (Life / Health)
+  { id: "V-093", en: "Health", sw: "건강 geongang", ja: "健康(けんこう)", emoji: "💪", level: "Intermediate", category: "Life" },
+  { id: "V-094", en: "Exercise", sw: "운동 undong", ja: "運動(うんどう)", emoji: "🏃", level: "Intermediate", category: "Life" },
+  { id: "V-095", en: "Habit", sw: "습관 seupgwan", ja: "習慣(しゅうかん)", emoji: "🔁", level: "Intermediate", category: "Life" },
+  { id: "V-096", en: "Stress", sw: "스트레스 seuteureseu", ja: "ストレス", emoji: "😣", level: "Intermediate", category: "Life" },
+  { id: "V-097", en: "Trust", sw: "신뢰 silloe", ja: "信頼(しらい)", emoji: "🔒", level: "Intermediate", category: "Life" },
+  { id: "V-098", en: "Value", sw: "가치 gachi", ja: "価値", emoji: "💎", level: "Intermediate", category: "Life" },
+  { id: "V-099", en: "Balance", sw: "균형 gyunhyeong", ja: "バランス", emoji: "⚖️", level: "Intermediate", category: "Life" },
+  
+  /* --- 上級 (Advanced) --- */
+  // 概念・哲学 (Concept / Philosophy)
+  { id: "V-100", en: "Success", sw: "성공 seonggong", ja: "成功(せいこう)", emoji: "🏆", level: "Advanced", category: "Life" },
+  { id: "V-101", en: "Failure", sw: "실패 silpae", ja: "失敗(しっぱい)", emoji: "❌", level: "Advanced", category: "Life" },
+  { id: "V-102", en: "Growth", sw: "성장 seongjang", ja: "成長(せいちょう)", emoji: "📈", level: "Advanced", category: "Life" },
+  { id: "V-103", en: "Change", sw: "변화 byeonhwa", ja: "変化(へんか)", emoji: "🔄", level: "Advanced", category: "Life" },
+  { id: "V-104", en: "Challenge", sw: "도전 dojeon", ja: "挑戦(ちょうせん)", emoji: "🏔️", level: "Advanced", category: "Life" },
+  { id: "V-105", en: "Vision", sw: "비전 bijeon", ja: "展望(てんぼう)", emoji: "🔭", level: "Advanced", category: "Life" },
+  { id: "V-106", en: "Innovation", sw: "혁신 hyeoksin", ja: "革新(かくしん)", emoji: "💡", level: "Advanced", category: "Work" },
+  { id: "V-107", en: "Perspective", sw: "관점 gwanjeom", ja: "観点(かんてん)", emoji: "👁️", level: "Advanced", category: "Thinking" },
+  { id: "V-108", en: "Integrity", sw: "정직 jeongjik", ja: "誠実(せいじつ)", emoji: "🕊️", level: "Advanced", category: "Life" },
+  { id: "V-109", en: "Commitment", sw: "헌신 heonsin", ja: "献身(けんしん)", emoji: "🔥", level: "Advanced", category: "Life" },
+
+  // ビジネス・高度専門 (Advanced Work / Management)
+  { id: "V-110", en: "Coordination", sw: "조정 jojeong", ja: "調整(ちょうせい)", emoji: "🎛️", level: "Advanced", category: "Work" },
+  { id: "V-111", en: "Leadership", sw: "리더십 rideosip", ja: "指導力", emoji: "🧑‍✈️", level: "Advanced", category: "Work" },
+  { id: "V-112", en: "Judgment", sw: "판단 pandan", ja: "判断(ぱんだん)", emoji: "⚖️", level: "Advanced", category: "Life" },
+  { id: "V-113", en: "Consistency", sw: "일관성 ilgwanseong", ja: "一貫性", emoji: "🔁", level: "Advanced", category: "Life" },
+  { id: "V-114", en: "Discipline", sw: "규율 gyuyul", ja: "規律(きりつ)", emoji: "📏", level: "Advanced", category: "Life" },
+  { id: "V-115", en: "Optimization", sw: "최적화 choejeokhwa", ja: "最適化", emoji: "⚙️", level: "Advanced", category: "Work" },
+  { id: "V-116", en: "Awareness", sw: "인식 insik", ja: "認識(にんしき)", emoji: "👀", level: "Advanced", category: "Life" },
+  { id: "V-117", en: "Evaluation", sw: "평가 pyeongga", ja: "評価(ひょうか)", emoji: "📊", level: "Advanced", category: "Work" },
+  { id: "V-118", en: "Collaboration", sw: "협력 hyeomnyeok", ja: "協力(きょうりょく)", emoji: "🧩", level: "Advanced", category: "Work" },
+  { id: "V-119", en: "Efficiency", sw: "효율 hyoyul", ja: "効率(こうりつ)", emoji: "⚡", level: "Advanced", category: "Work" },
+  { id: "V-120", en: "Strategy", sw: "전략 jeollyak", ja: "戦略(ぜんりゃく)", emoji: "♟️", level: "Advanced", category: "Work" },
+
+  // 社会・権利・科学 (Society / Science)
+  { id: "V-121", en: "Justice", sw: "정의 jeong-ui", ja: "正義(せいぎ)", emoji: "⚖️", level: "Advanced", category: "Society" },
+  { id: "V-122", en: "Liberty", sw: "자유 jayu", ja: "自由(じゆう)", emoji: "🕊️", level: "Advanced", category: "Society" },
+  { id: "V-123", en: "Equality", sw: "평등 pyeongdeung", ja: "平等(びょうどう)", emoji: "🤝", level: "Advanced", category: "Society" },
+  { id: "V-124", en: "Development", sw: "개발 gaebal", ja: "開発(かいはつ)", emoji: "🏗️", level: "Advanced", category: "Technology" },
+  { id: "V-125", en: "Sustainability", sw: "지속가능성 jisokganeungseong", ja: "持続可能性", emoji: "♾️", level: "Advanced", category: "Society" },
+  { id: "V-126", en: "Knowledge", sw: "지식 jisik", ja: "知識(ちしき)", emoji: "📖", level: "Advanced", category: "Education" },
+  { id: "V-127", en: "Analysis", sw: "분석 bunseok", ja: "分析(ぶんせき)", emoji: "🧪", level: "Advanced", category: "Thinking" },
+  { id: "V-128", en: "Influence", sw: "영향 yeonghyang", ja: "影響(えいきょう)", emoji: "🌊", level: "Advanced", category: "Society" },
+  { id: "V-129", en: "Direction", sw: "방향 banghyang", ja: "方向(ほうこう)", emoji: "🧭", level: "Advanced", category: "Life" },
+
+  // その他高度な語彙
+  { id: "V-130", en: "Resolution", sw: "결의 gyeoryui", ja: "決意", emoji: "✊", level: "Advanced", category: "Thinking" },
+  { id: "V-131", en: "Potential", sw: "잠재력 jamjaeryeok", ja: "潜在能力", emoji: "🌟", level: "Advanced", category: "Life" },
+  { id: "V-132", en: "Transformation", sw: "변형 byeonhyeong", ja: "変容", emoji: "🦋", level: "Advanced", category: "Science" },
+  { id: "V-133", en: "Perspective", sw: "시각 sigak", ja: "視点", emoji: "👓", level: "Advanced", category: "Thinking" },
+  
+  /* --- 追加推奨：日常動作・状態 --- */
+  // 必須動詞 (Essential Verbs)
+  { id: "V-134", en: "Go", sw: "가다 gada", ja: "行く", emoji: "🏃‍♂️", level: "Beginner", category: "Action" },
+  { id: "V-135", en: "Come", sw: "오다 oda", ja: "来る", emoji: "🚶‍♂️", level: "Beginner", category: "Action" },
+  { id: "V-136", en: "Do", sw: "하다 hada", ja: "する", emoji: "✨", level: "Beginner", category: "Action" },
+  { id: "V-137", en: "Look/See", sw: "보다 boda", ja: "見る", emoji: "👁️", level: "Beginner", category: "Action" },
+  { id: "V-138", en: "Listen/Hear", sw: "듣다 deutda", ja: "聴く", emoji: "👂", level: "Beginner", category: "Action" },
+  { id: "V-139", en: "Speak/Talk", sw: "말하다 malhada", ja: "話す", emoji: "🗣️", level: "Beginner", category: "Action" },
+
+  // 状態・様子 (Condition)
+  { id: "V-140", en: "Good/Like", sw: "좋다 jota", ja: "良い/好き", emoji: "👍", level: "Beginner", category: "Feeling" },
+  { id: "V-141", en: "Bad", sw: "나쁘다 nappeuda", ja: "悪い", emoji: "👎", level: "Beginner", category: "Feeling" },
+  { id: "V-142", en: "Many/Much", sw: "많다 manta", ja: "多い", emoji: "➕", level: "Beginner", category: "Condition" },
+  { id: "V-143", en: "Few/Little", sw: "적다 jeokda", ja: "少ない", emoji: "➖", level: "Beginner", category: "Condition" },
+  { id: "V-144", en: "Big", sw: "크다 keuda", ja: "大きい", emoji: "🐘", level: "Beginner", category: "Condition" },
+  { id: "V-145", en: "Small", sw: "작다 jakda", ja: "小さい", emoji: "🐭", level: "Beginner", category: "Condition" },
+
+  // 疑問詞 (Interrogatives) - 会話の核
+  { id: "V-146", en: "What", sw: "무엇 mueot", ja: "何", emoji: "❓", level: "Beginner", category: "Thinking" },
+  { id: "V-147", en: "Where", sw: "어디 eodi", ja: "どこ", emoji: "📍", level: "Beginner", category: "Place" },
+  { id: "V-148", en: "When", sw: "언제 eonje", ja: "いつ", emoji: "🕒", level: "Beginner", category: "Time" },
+  { id: "V-149", en: "Who", sw: "누구 nugu", ja: "だれ", emoji: "👤", level: "Beginner", category: "People" },
+  { id: "V-150", en: "Why", sw: "왜 wae", ja: "なぜ", emoji: "⁉️", level: "Beginner", category: "Thinking" },
+    ];

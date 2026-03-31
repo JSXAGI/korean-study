@@ -1,0 +1,146 @@
+const grammarData = [
+  /* --- 初級 (Beginner) --- */
+  // 基本の挨拶 (Greetings) - 重複を統合し、自然な順序に整理
+  { id: "G-001", title: "基本の挨拶", sw_phrase: "안녕하세요 annyeonghaseyo", en_phrase: "Hello", ja_trans: "こんにちは", ja_explanation: "最も一般的な丁寧な挨拶です。", level: "Beginner" },
+  { id: "G-002", title: "感謝の表現", sw_phrase: "감사합니다 gamsahamnida", en_phrase: "Thank you", ja_trans: "ありがとうございます", ja_explanation: "公式な場でも使える感謝の言葉です。", level: "Beginner" },
+  { id: "G-003", title: "謝罪の表現", sw_phrase: "죄송합니다 joesonghamnida", en_phrase: "I'm sorry", ja_trans: "ごめんなさい", ja_explanation: "目上の人や公の場で使う謝罪です。", level: "Beginner" },
+  { id: "G-004", title: "肯定の返事", sw_phrase: "네 ne", en_phrase: "Yes", ja_trans: "はい", ja_explanation: "同意や返事の基本です。", level: "Beginner" },
+  { id: "G-005", title: "否定の返事", sw_phrase: "아니요 aniyo", en_phrase: "No", ja_trans: "いいえ", ja_explanation: "丁寧な否定の表現です。", level: "Beginner" },
+  { id: "G-006", title: "お疲れ様", sw_phrase: "수고하셨습니다 sugohasyeotseumnida", en_phrase: "Good job / Well done", ja_trans: "お疲れ様でした", ja_explanation: "仕事が終わった際などに使います。", level: "Beginner" },
+
+  // 自己紹介・基本文型 (Self-Introduction)
+  { id: "G-007", title: "自己紹介", sw_phrase: "저는 학생입니다 jeoneun haksaeng-imnida", en_phrase: "I am a student", ja_trans: "私は学生です", ja_explanation: "「名詞 + 입니다」で「〜です」となります。", level: "Beginner" },
+  { id: "G-008", title: "職業表現", sw_phrase: "회사원입니다 hoesawon-imnida", en_phrase: "I am an office worker", ja_trans: "会社員です", ja_explanation: "自分の職業を伝えるときに使います。", level: "Beginner" },
+  { id: "G-009", title: "名前を言う", sw_phrase: "이름이 무엇입니까? ireumi mueosimnikka?", en_phrase: "What is your name?", ja_trans: "お名前は何ですか？", ja_explanation: "相手の名前を尋ねる丁寧な表現です。", level: "Beginner" },
+  { id: "G-010", title: "出身地", sw_phrase: "어느 나라 사람입니까? eoneu nara saram-imnikka?", en_phrase: "Which country are you from?", ja_trans: "どこの国の人ですか？", ja_explanation: "出身を尋ねる際のフレーズです。", level: "Beginner" },
+  { id: "G-011", title: "日本から来ました", sw_phrase: "일본에서 왔습니다 ilbon-eseo watseumnida", en_phrase: "I came from Japan", ja_trans: "日本から来ました", ja_explanation: "自分の出身を伝える表現です。", level: "Beginner" },
+
+  // 日常の動作（拡充分）
+  { id: "G-012", title: "食事の挨拶（前）", sw_phrase: "잘 먹겠습니다 jal meokgetseumnida", en_phrase: "I will eat well", ja_trans: "いただきます", ja_explanation: "食事を始める前の挨拶です。", level: "Beginner" },
+  { id: "G-013", title: "食事の挨拶（後）", sw_phrase: "잘 먹었습니다 jal meogeotseumnida", en_phrase: "I ate well", ja_trans: "ごちそうさまでした", ja_explanation: "食事が終わった後の挨拶です。", level: "Beginner" },
+  { id: "G-014", title: "安否確認", sw_phrase: "잘 지냈어요? jal jinaesseoyo?", en_phrase: "How have you been?", ja_trans: "元気でしたか？", ja_explanation: "久しぶりに会った時の定番フレーズです。", level: "Beginner" },
+  
+  /* --- 中級 (Intermediate) --- */
+  // 買い物・場所を尋ねる (Shopping & Directions)
+  { id: "G-015", title: "場所を尋ねる", sw_phrase: "화장실이 어디에 있습니까? hwajang-siri eodie itseumnikka?", en_phrase: "Where is the bathroom?", ja_trans: "トイレはどこですか？", ja_explanation: "場所を尋ねる最も重要な表現の一つです。", level: "Intermediate" },
+  { id: "G-016", title: "価格を確認する", sw_phrase: "이것은 얼마입니까? igeoseun eolmaimnikka?", en_phrase: "How much is this?", ja_trans: "これはいくらですか？", ja_explanation: "買い物で必須のフレーズです。", level: "Intermediate" },
+  { id: "G-017", title: "試着の依頼", sw_phrase: "입어 봐도 될까요? ibeo bwado doelkkayo?", en_phrase: "Can I try this on?", ja_trans: "着てみてもいいですか？", ja_explanation: "服屋などで使える実用的な表現です。", level: "Intermediate" },
+  { id: "G-018", title: "値引き交渉", sw_phrase: "조금 깎아 주세요 jogeum kkakka juseyo", en_phrase: "Please give me a discount", ja_trans: "少し安くしてください", ja_explanation: "市場などで使われる日常的な表現です。", level: "Intermediate" },
+
+  // レストラン・注文 (Restaurant)
+  { id: "G-019", title: "注文の依頼", sw_phrase: "주문하시겠습니까? jumunhasigetseumnikka?", en_phrase: "Would you like to order?", ja_trans: "注文されますか？", ja_explanation: "店員さんが使うフレーズですが、聞き取れる必要があります。", level: "Intermediate" },
+  { id: "G-020", title: "メニューの要求", sw_phrase: "메뉴판 좀 보여 주세요 menyupan jom boyeo juseyo", en_phrase: "Please show me the menu", ja_trans: "メニューを見せてください", ja_explanation: "レストランに入った際の基本です。", level: "Intermediate" },
+  { id: "G-021", title: "辛さの確認", sw_phrase: "안 맵게 해 주세요 an maepge hae juseyo", en_phrase: "Please make it not spicy", ja_trans: "辛くないようにしてください", ja_explanation: "韓国料理を注文する際に役立つ表現です。", level: "Intermediate" },
+  { id: "G-022", title: "お会計", sw_phrase: "계산해 주세요 gyesanhae juseyo", en_phrase: "Check, please", ja_trans: "お会計をお願いします", ja_explanation: "食事を終えた際の声掛けです。", level: "Intermediate" },
+
+  // 意思・希望 (Wishes & Intentions)
+  { id: "G-023", title: "〜したい", sw_phrase: "한국어를 배우고 싶어요 hangugeoreul baeugo sipeoyo", en_phrase: "I want to learn Korean", ja_trans: "韓国語を学びたいです", ja_explanation: "「動詞の語幹 + 고 싶다」で希望を表します。", level: "Intermediate" },
+  { id: "G-024", title: "〜できます", sw_phrase: "매운 음식을 먹을 수 있어요 maeun eumsigeul meogeul su isseoyo", en_phrase: "I can eat spicy food", ja_trans: "辛い食べ物を食べられます", ja_explanation: "「〜ㄹ/을 수 있다」で可能を表します。", level: "Intermediate" },
+  
+  /* --- 日常会話・食事・感情 (G-031 〜 G-065) --- */
+  
+  // 飲食店・カフェで (Dining & Cafe)
+  { id: "G-031", title: "人数を伝える", sw_phrase: "두 명입니다 du myeong-imnida", en_phrase: "Two people", ja_trans: "2人です", ja_explanation: "入店時にまず使うフレーズです。", level: "Beginner" },
+  { id: "G-032", title: "おすすめを聞く", sw_phrase: "추천해 주세요 chucheonhae juseyo", en_phrase: "Please recommend something", ja_trans: "おすすめを教えてください", ja_explanation: "迷った時に非常に便利な表現です。", level: "Intermediate" },
+  { id: "G-033", title: "水をお願いする", sw_phrase: "물 좀 주세요 mul jom juseyo", en_phrase: "Water, please", ja_trans: "お水をください", ja_explanation: "「〜좀 주세요」は汎用性が高い依頼形です。", level: "Beginner" },
+  { id: "G-034", title: "持ち帰りの希望", sw_phrase: "포장해 주세요 pojanghae juseyo", en_phrase: "To go, please", ja_trans: "テイクアウトでお願いします", ja_explanation: "韓国はテイクアウト文化が盛んです。", level: "Intermediate" },
+  { id: "G-035", title: "お腹が空いた", sw_phrase: "배고파요 baegopayo", en_phrase: "I'm hungry", ja_trans: "お腹が空きました", ja_explanation: "日常で最も使われる感情表現の一つです。", level: "Beginner" },
+  { id: "G-036", title: "お腹がいっぱい", sw_phrase: "배불러요 baebulleoyo", en_phrase: "I'm full", ja_trans: "お腹がいっぱいです", ja_explanation: "食後の満足を伝える言葉です。", level: "Beginner" },
+
+  // 買い物・支払い (Shopping & Payment)
+  { id: "G-037", title: "カード決済", sw_phrase: "カード 결제 돼요? kadeu gyeolje dwayo?", en_phrase: "Can I pay by card?", ja_trans: "カード決済できますか？", ja_explanation: "キャッシュレス社会の韓国で必須の確認です。", level: "Intermediate" },
+  { id: "G-038", title: "領収書を頼む", sw_phrase: "영수증 주세요 yeongsujeung juseyo", en_phrase: "Receipt, please", ja_trans: "領収書（レシート）ください", ja_explanation: "家計簿や経算に必要です。", level: "Intermediate" },
+  { id: "G-039", title: "袋の要否", sw_phrase: "봉투 필요하세요? bongtu piryohaseyo?", en_phrase: "Do you need a bag?", ja_trans: "袋は必要ですか？", ja_explanation: "店員さんに聞かれる定番の質問です。", level: "Intermediate" },
+  { id: "G-040", title: "これにします", sw_phrase: "이걸로 할게요 igeollo halkkeyo", en_phrase: "I'll take this one", ja_trans: "これにします（これに決めます）", ja_explanation: "購入の意思を決定するフレーズです。", level: "Beginner" },
+
+  // 感情・状態・リアクション (Feelings & Reaction)
+  { id: "G-041", title: "驚き", sw_phrase: "깜짝이야! kkamjjagiya!", en_phrase: "What a surprise!", ja_trans: "びっくりした！", ja_explanation: "咄嗟に出るリアクション言葉です。", level: "Beginner" },
+  { id: "G-042", title: "嬉しい", sw_phrase: "기뻐요 gippeoyo", en_phrase: "I'm happy", ja_trans: "嬉しいです", ja_explanation: "良いことがあった時の表現です。", level: "Beginner" },
+  { id: "G-043", title: "面白い・楽しい", sw_phrase: "재미있어요 jaemi-isseoyo", en_phrase: "It's fun / interesting", ja_trans: "面白い（楽しい）です", ja_explanation: "エンタメや会話の感想に。 ", level: "Beginner" },
+  { id: "G-044", title: "疲れた", sw_phrase: "피곤해요 pigonhaeyo", en_phrase: "I'm tired", ja_trans: "疲れました", ja_explanation: "体調を伝える基本的な言葉です。", level: "Beginner" },
+  { id: "G-045", title: "大丈夫です", sw_phrase: "괜찮아요 gwaenchanayo", en_phrase: "It's okay", ja_trans: "大丈夫です", ja_explanation: "肯定、拒絶、体調確認など万能に使えます。", level: "Beginner" },
+  { id: "G-046", title: "本当ですか？", sw_phrase: "정말이에요? jeongmarieyo?", en_phrase: "Is it true?", ja_trans: "本当ですか？", ja_explanation: "相槌として非常に重要です。", level: "Beginner" },
+
+  // 疑問・確認 (Inquiry)
+  { id: "G-047", title: "韓国語で何？", sw_phrase: "한국어로 뭐라고 해요? hangugeoro mworago haeyo?", en_phrase: "What do you call it in Korean?", ja_trans: "韓国語で何と言いますか？", ja_explanation: "学習中、最も使うべき質問フレーズです。", level: "Intermediate" },
+  { id: "G-048", title: "もう一度言って", sw_phrase: "다시 한번 말해 주세요 dasi hanbeon malhae juseyo", en_phrase: "Please say it again", ja_trans: "もう一度言ってください", ja_explanation: "聞き取れなかった時の必須依頼です。", level: "Beginner" },
+  { id: "G-049", title: "わかりますか？", sw_phrase: "이해했어요? ihae-haesseoyo?", en_phrase: "Did you understand?", ja_trans: "理解できましたか？", ja_explanation: "相手の理解度を確認します。", level: "Intermediate" },
+  { id: "G-050", title: "知っています", sw_phrase: "알고 있어요 algo isseoyo", en_phrase: "I know it", ja_trans: "知っています", ja_explanation: "知識や情報の保有を伝えます。", level: "Beginner" },
+  
+  /* --- 交通・宿泊・トラブル (G-051 〜 G-075) --- */
+  
+  // 交通・移動 (Transport)
+  { id: "G-051", title: "行き方を尋ねる", sw_phrase: "서울역에 어떻게 가요? seoullyeoge eotteoke gayo?", en_phrase: "How do I get to Seoul Station?", ja_trans: "ソウル駅にどうやって行きますか？", ja_explanation: "目的地への手段を尋ねる基本形です。", level: "Intermediate" },
+  { id: "G-052", title: "タクシーで行く", sw_phrase: "택시를 타고 가세요 taeksireul tago gaseyo", en_phrase: "Please take a taxi", ja_trans: "タクシーに乗って行ってください", ja_explanation: "「〜を乗って行く」という移動の表現です。", level: "Intermediate" },
+  { id: "G-053", title: "ここで降ろして", sw_phrase: "여기서 내려 주세요 yeogiseo naeryeo juseyo", en_phrase: "Please let me off here", ja_trans: "ここで降ろしてください", ja_explanation: "タクシーや車で目的地に着いた時の合図です。", level: "Beginner" },
+  { id: "G-054", title: "どれくらいかかる？", sw_phrase: "얼마나 걸려요? eolmana geollyeoyo?", en_phrase: "How long does it take?", ja_trans: "どれくらい（時間が）かかりますか？", ja_explanation: "所要時間を尋ねる必須フレーズです。", level: "Intermediate" },
+
+  // 宿泊・ホテル (Hotel)
+  { id: "G-055", title: "チェックイン", sw_phrase: "체크인하고 싶어요 chekeuinhago sipeoyo", en_phrase: "I'd like to check in", ja_trans: "チェックインしたいです", ja_explanation: "ホテルのフロントで最初に言う言葉です。", level: "Beginner" },
+  { id: "G-056", title: "荷物を預ける", sw_phrase: "짐을 맡길 수 있을까요? jimeul matgil su isseulkkayo?", en_phrase: "Can I leave my luggage?", ja_trans: "荷物を預けられますか？", ja_explanation: "観光前に便利な依頼表現です。", level: "Intermediate" },
+  { id: "G-057", title: "Wi-Fiのパスワード", sw_phrase: "와이파이 비밀번호가 뭐예요? waipa-i bimilbeonhoga mwoyeyo?", en_phrase: "What is the Wi-Fi password?", ja_trans: "Wi-Fiのパスワードは何ですか？", ja_explanation: "現代の旅に欠かせない質問です。", level: "Beginner" },
+
+  // 緊急・トラブル (Emergency)
+  { id: "G-058", title: "助けてください", sw_phrase: "도와주세요! dowajuseyo!", en_phrase: "Help me!", ja_trans: "助けてください！", ja_explanation: "緊急時に大声で伝える言葉です。", level: "Beginner" },
+  { id: "G-059", title: "失くしました", sw_phrase: "지갑을 잃어버렸어요 jigabeul ireobeoryeosseoyo", en_phrase: "I lost my wallet", ja_trans: "財布を失くしました", ja_explanation: "トラブルを説明する際の表現です。", level: "Intermediate" },
+  { id: "G-060", title: "気分が悪いです", sw_phrase: "몸이 안 좋아요 momi an joayo", en_phrase: "I don't feel well", ja_trans: "具合が悪いです", ja_explanation: "自身の体調不良を伝える言葉です。", level: "Beginner" },
+
+  // 日常の約束 (Appointment)
+  { id: "G-061", title: "いつ暇ですか？", sw_phrase: "언제 시간이 돼요? eonje sigani dwayo?", en_phrase: "When do you have time?", ja_trans: "いつ時間がありますか？", ja_explanation: "友人を誘う時の第一歩です。", level: "Intermediate" },
+  { id: "G-062", title: "約束があります", sw_phrase: "약속이 있어요 yaksogi isseoyo", en_phrase: "I have plans", ja_trans: "約束（予定）があります", ja_explanation: "先約があることを伝えます。", level: "Beginner" },
+  { id: "G-063", title: "遅れてごめん", sw_phrase: "늦어서 미안해요 neujeoseo mianhaeyo", en_phrase: "Sorry I'm late", ja_trans: "遅れてごめんなさい", ja_explanation: "待ち合わせに遅れた時のマナーです。", level: "Beginner" },
+  
+  /* --- 補完：欠落していた交通・生活・交流編 (G-064 〜 G-075) --- */
+  
+  { id: "G-064", title: "道を間違える", sw_phrase: "길을 잘못 들었어요 gireul jalmot deureosseoyo", en_phrase: "I took the wrong way", ja_trans: "道を間違えました", ja_explanation: "迷った時に状況を説明する表現です。", level: "Intermediate" },
+  { id: "G-065", title: "予約の確認", sw_phrase: "예약을 확인하고 싶어요 yeyageul hwaginhago sipeoyo", en_phrase: "I'd like to confirm my reservation", ja_trans: "予約を確認したいです", ja_explanation: "ホテルやレストランで使います。", level: "Intermediate" },
+  { id: "G-066", title: "お勧めを注文", sw_phrase: "제일 인기 있는 것으로 주세요 jeil ingi inneun geoseuro juseyo", en_phrase: "Please give me the most popular one", ja_trans: "一番人気のものをください", ja_explanation: "注文に迷った時の必殺フレーズです。", level: "Beginner" },
+  { id: "G-067", title: "アレルギーの伝達", sw_phrase: "알레르기가 있어요 alleureugiga isseoyo", en_phrase: "I have an allergy", ja_trans: "アレルギーがあります", ja_explanation: "健康に関わる重要な表現です。", level: "Intermediate" },
+  { id: "G-068", title: "写真を撮って", sw_phrase: "사진 좀 찍어 주시겠어요? sajin jom jjigeo jusigetseummikka?", en_phrase: "Could you take a photo?", ja_trans: "写真を撮っていただけますか？", ja_explanation: "観光地で頼む際の丁寧な表現です。", level: "Beginner" },
+  { id: "G-069", title: "両替したい", sw_phrase: "환전하고 싶어요 hwanjeonhago sipeoyo", en_phrase: "I want to exchange money", ja_trans: "両替したいです", ja_explanation: "銀行や両替所で使います。", level: "Beginner" },
+  { id: "G-070", title: "充電の依頼", sw_phrase: "충전할 수 있을까요? chungjeonhal su isseulkkayo?", en_phrase: "Can I charge my phone?", ja_trans: "充電できますか？", ja_explanation: "カフェなどで役立つ現代の必須フレーズです。", level: "Intermediate" },
+  { id: "G-071", title: "天気の感想", sw_phrase: "오늘 날씨가 정말 덥네요 oneul nalssiga jeongmal deomneyo", en_phrase: "The weather is really hot today", ja_trans: "今日は本当に暑いですね", ja_explanation: "会話を始める時の定番の話題です。", level: "Beginner" },
+  { id: "G-072", title: "趣味の共有", sw_phrase: "한국 드라마를 자주 봐요 hangugeul deuramareul jaju bwayo", en_phrase: "I often watch Korean dramas", ja_trans: "韓国ドラマをよく見ます", ja_explanation: "共通の話題を見つける時に使います。", level: "Beginner" },
+  { id: "G-073", title: "驚きのリアクション", sw_phrase: "말도 안 돼! maldo an dwae!", en_phrase: "No way! / Unbelievable!", ja_trans: "ありえない！ / まさか！", ja_explanation: "信じられない話を聞いた時の反応です。", level: "Intermediate" },
+  { id: "G-074", title: "応援の言葉", sw_phrase: "포기하지 마세요 pogihaji maseyo", en_phrase: "Don't give up", ja_trans: "諦めないでください", ja_explanation: "相手を励ます時の強い言葉です。", level: "Intermediate" },
+  { id: "G-075", title: "再会の約束", sw_phrase: "또 만나요 tto mannayo", en_phrase: "See you again", ja_trans: "また会いましょう", ja_explanation: "別れ際の温かい挨拶です。", level: "Beginner" },
+  
+    /* --- 友人・SNS・高度な表現 (G-076 〜 G-100) --- */
+    // 親睦を深める (Socializing)
+  { id: "G-076", title: "タメ口でいいよ", sw_phrase: "말 편하게 하세요 mal pyeonhage haseyo", en_phrase: "You can speak comfortably", ja_trans: "（敬語を使わず）楽に話してください", ja_explanation: "親しくなった時に提案する言葉です。", level: "Advanced" },
+  { id: "G-077", title: "連絡先教えて", sw_phrase: "연락처 좀 알려주세요 yeollakcheo jom allyeojuseyo", en_phrase: "Please give me your contact info", ja_trans: "連絡先を教えてください", ja_explanation: "仲良くなった相手に聞くフレーズです。", level: "Intermediate" },
+  { id: "G-078", title: "カカオやってる？", sw_phrase: "카톡 해요? katok haeyo?", en_phrase: "Do you use KakaoTalk?", ja_trans: "カトク（カカオトーク）やってますか？", ja_explanation: "韓国で最も一般的なSNSの確認です。", level: "Beginner" },
+
+  // 趣味・嗜好 (Hobbies)
+  { id: "G-079", title: "趣味は何？", sw_phrase: "취미가 뭐예요? chuimiga mwoyeyo?", en_phrase: "What is your hobby?", ja_trans: "趣味は何ですか？", ja_explanation: "会話を広げる定番の質問です。", level: "Beginner" },
+  { id: "G-080", title: "映画が好き", sw_phrase: "영화 보는 것을 좋아해요 yeonghwa boneun geoseul joahaeyo", en_phrase: "I like watching movies", ja_trans: "映画を見るのが好きです", ja_explanation: "「〜すること（것）」を使った名詞化表現です。", level: "Intermediate" },
+
+  // 現代語・SNS (Trendy Phrases)
+  { id: "G-081", title: "ヤバい・すごい", sw_phrase: "대박! daebak!", en_phrase: "Awesome!", ja_trans: "すごい！ヤバい！", ja_explanation: "驚きや感動を表す超定番の流行語です。", level: "Beginner" },
+  { id: "G-082", title: "おすすめ（推し）", sw_phrase: "제가 제일 좋아하는 가수예요 jega jeil joahaneun gasuyeyo", en_phrase: "They are my favorite singer", ja_trans: "私が一番好きな歌手です", ja_explanation: "「推し」を紹介する時に使います。", level: "Intermediate" },
+  { id: "G-083", title: "セルカ（自撮り）", sw_phrase: "같이 셀카 찍을까요? gachi selka jjigeulkkayo?", en_phrase: "Shall we take a selfie together?", ja_trans: "一緒に自撮りしませんか？", ja_explanation: "記念撮影を誘う言葉です。", level: "Beginner" },
+
+  // 意志・未来・仮定 (Advanced Grammar)
+  { id: "G-084", title: "頑張ります", sw_phrase: "열심히 하겠습니다 yeolsimhi hagetseumnida", en_phrase: "I will do my best", ja_trans: "一生懸命頑張ります", ja_explanation: "決意を伝える丁寧な表現です。", level: "Beginner" },
+  { id: "G-085", title: "〜するつもり", sw_phrase: "내일 친구를 만날 거예요 naeil chingureul mannal geoyeyo", en_phrase: "I'm going to meet a friend tomorrow", ja_trans: "明日友達に会うつもりです", ja_explanation: "「〜ㄹ/을 거예요」で未来の予定を表します。", level: "Intermediate" },
+  { id: "G-086", title: "もし雨が降ったら", sw_phrase: "만약 비가 오면 안 갈 거예요 manyak biga omyeon an gal geoyeyo", en_phrase: "If it rains, I won't go", ja_trans: "もし雨が降ったら行きません", ja_explanation: "「만약 〜면」で仮定の話をします。", level: "Advanced" },
+
+  // ビジネス・フォーマル (Business)
+  { id: "G-087", title: "お世話になります", sw_phrase: "잘 부탁드립니다 jal butakdeurimnida", en_phrase: "I look forward to working with you", ja_trans: "よろしくお願いします", ja_explanation: "ビジネスの挨拶として非常に重要です。", level: "Intermediate" },
+  { id: "G-088", title: "確認しました", sw_phrase: "확인했습니다 hwaginhaetseumnida", en_phrase: "I have confirmed it", ja_trans: "確認いたしました", ja_explanation: "報告や連絡の返信で使います。", level: "Advanced" },
+
+  /* --- 100件までの最終ブースト（日常の決まり文句） --- */
+  { id: "G-089", title: "お先に失礼します", sw_phrase: "먼저 실례하겠습니다 meonjeo sillyehagetseumnida", en_phrase: "I'll be leaving first", ja_trans: "お先に失礼します", ja_explanation: "場を離れる時のマナー表現です。", level: "Intermediate" },
+  { id: "G-090", title: "久しぶり", sw_phrase: "오랜만이에요 oraenmanieyo", en_phrase: "Long time no see", ja_trans: "お久しぶりです", ja_explanation: "再会を喜ぶ挨拶です。", level: "Beginner" },
+  { id: "G-091", title: "おめでとう", sw_phrase: "축하해요 chukahaeyo", en_phrase: "Congratulations", ja_trans: "おめでとうございます", ja_explanation: "お祝いの席で必ず使います。", level: "Beginner" },
+  { id: "G-092", title: "気にしないで", sw_phrase: "신경 쓰지 마세요 singyeong sseuji maseyo", en_phrase: "Don't worry about it", ja_trans: "気にしないでください", ja_explanation: "相手を安心させる言葉です。", level: "Intermediate" },
+  { id: "G-093", title: "また連絡します", sw_phrase: "나중에 연락할게요 najunge yeollakalgeyo", en_phrase: "I'll contact you later", ja_trans: "後で連絡しますね", ja_explanation: "別れ際の挨拶です。", level: "Intermediate" },
+  { id: "G-094", title: "気をつけて", sw_phrase: "조심해서 가세요 josimhaeseo gaseyo", en_phrase: "Go home safely", ja_trans: "気をつけて帰ってください", ja_explanation: "相手を気遣う別れ際の言葉です。", level: "Beginner" },
+  { id: "G-095", title: "ちょうどよかった", sw_phrase: "마침 잘 됐네요 machim jal dwaenneyo", en_phrase: "That's perfect / Just in time", ja_trans: "ちょうどよかったです（好都合です）", ja_explanation: "タイミングが良い時に使います。", level: "Advanced" },
+  { id: "G-096", title: "正直に言うと", sw_phrase: "솔직히 말하면 soljikhi malhamyeon", en_phrase: "To be honest", ja_trans: "正直に言うと", ja_explanation: "本音を切り出す時の枕詞です。", level: "Advanced" },
+  { id: "G-097", title: "どっちでもいいよ", sw_phrase: "둘 다 괜찮아요 dul da gwaenchanayo", en_phrase: "Both are fine", ja_trans: "どちらでも大丈夫です", ja_explanation: "選択を任せる時の返答です。", level: "Intermediate" },
+  { id: "G-098", title: "お腹がすきました", sw_phrase: "출출해요 chulchulhaeyo", en_phrase: "I'm a bit hungry", ja_trans: "小腹が空きました", ja_explanation: "「배고파」より軽い空腹感です。", level: "Intermediate" },
+  { id: "G-099", title: "よく似合います", sw_phrase: "잘 어울려요 jal eoullyeoyo", en_phrase: "It looks good on you", ja_trans: "よく似合っています", ja_explanation: "相手を褒める時の表現です。", level: "Beginner" },
+  { id: "G-100", title: "楽しく過ごして", sw_phrase: "즐거운 시간 보내세요 jeulgeoun sigan bonaeseyo", en_phrase: "Have a good time", ja_trans: "楽しい時間をお過ごしください", ja_explanation: "100番目にふさわしい、幸運を祈る挨拶です。", level: "Intermediate" },
+  ];
+  
