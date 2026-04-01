@@ -47,9 +47,40 @@
     
 	.card { background: var(--surface-color); border-radius: 20px; padding: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 4px solid #fff; margin-bottom: 20px; }
     
-    .level-selector { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 15px 0; }
-    .btn-lvl { padding: 10px; border-radius: 12px; border: 3px solid #cbd5e1; font-weight: bold; cursor: pointer; background: #f1f5f9; }
-    .btn-lvl.active { border-color: var(--primary-color); background: white; color: var(--primary-color); transform: scale(1.05); }
+.level-selector { 
+  display: flex !important; 
+  flex-wrap: nowrap !important; 
+  justify-content: center !important;
+  gap: 4px !important; 
+  margin: 10px 0 !important; /* 上下の余白を少し詰めました */
+  width: 100% !important; 
+  height: auto !important; /* 高さを中身に合わせる */
+  box-sizing: border-box !important;
+}
+
+.btn-lvl { 
+  flex: 1 1 0% !important; 
+  min-width: 0 !important; 
+  height: 35px !important; /* ★高さを35pxに固定（これで巨大化を防ぎます） */
+  line-height: 1 !important; /* 文字を中央に */
+  padding: 0 !important; /* 内側の余白をゼロに */
+  border-radius: 6px !important; 
+  border: 1px solid #cbd5e1 !important; 
+  font-weight: bold; 
+  cursor: pointer; 
+  background: #f1f5f9; 
+  font-size: 0.75rem !important; /* 文字を少しだけ見やすく調整 */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  white-space: nowrap; 
+}
+
+.btn-lvl.active { 
+  border-color: var(--primary-color) !important; 
+  background: white !important; 
+  color: var(--primary-color) !important; 
+}
     .btn { cursor: pointer; border: none; border-radius: 12px; padding: 10px; font-weight: bold; font-size: 1.1rem; 
 	display: inline-flex; align-items: center; justify-content: center; transition: 0.2s; }
     .btn-primary { background-color: var(--primary-color); color: white; width: 100%; }
@@ -212,28 +243,50 @@ body {
     }
 
     /* 4. レベル選択（初級・中級・上級）を横長の大きなボタンにして並べる */
-    .level-selector {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 12px !important;
-        height: auto !important;
-        writing-mode: horizontal-tb !important;
-    }
+/* --- レベル選択ボタンの基本設定（PC・スマホ共通） --- */
+.level-selector { 
+  display: flex !important; /* 絶対に横並び(flex)にする */
+  flex-direction: row !important; /* 横方向に並べる */
+  flex-wrap: nowrap !important; /* 絶対に折り返さない(縦に並ばせない) */
+  justify-content: space-between !important;
+  gap: 5px !important; 
+  margin: 10px 0 !important; 
+  width: 100% !important; 
+  box-sizing: border-box !important;
+}
 
-    .btn-lvl {
-        width: 100% !important;
-        height: 75px !important; /* 押しやすい高さ */
-        min-height: 75px !important;
-        writing-mode: horizontal-tb !important;
-        font-size: 1.25rem !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        border-radius: 12px !important;
-        position: static !important; /* 重なり防止 */
-        transform: none !important;
-        margin: 0px !important;
-    }
+.btn-lvl { 
+  flex: 1 !important; /* 4つを均等な幅にする */
+  min-width: 0 !important; /* 幅が狭くても潰さない */
+  height: 32px !important; /* 高さを低く抑える */
+  padding: 0 !important; 
+  border-radius: 6px !important; 
+  border: 1px solid #cbd5e1 !important; 
+  font-weight: bold; 
+  cursor: pointer; 
+  background: #f1f5f9; 
+  font-size: 0.8rem !important; 
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  white-space: nowrap !important; /* 文字を改行させない */
+}
+
+.btn-lvl.active { 
+  border-color: var(--primary-color) !important; 
+  background: white !important; 
+  color: var(--primary-color) !important; 
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* スマホ用の微調整（さらにスリムに） */
+@media (max-width: 600px) {
+  .btn-lvl {
+    height: 28px !important; /* スマホではさらに高さを抑える */
+    font-size: 0.7rem !important; /* 文字を少し小さく */
+    gap: 3px !important;
+  }
+}
 
     /* 5. 下の「単語・文法」ボタンを横並びで大きく */
     .activity-select {
@@ -320,7 +373,6 @@ body {
 }
     /* クエストエリア */
     #quest-area { border: 4px solid var(--secondary-color); background: #fff; }
-	
   </style>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 </head>
@@ -337,14 +389,6 @@ body {
 <main class="main-content">
     <div id="home-view">
       <div class="card text-center">
-        <h2>1. Level / レベル選択</h2>
-        <div class="level-selector">
-          <button class="btn-lvl active" id="lvl-Beginner" onclick="setLevel('Beginner')">初級<br>小3~</button>
-          <button class="btn-lvl" id="lvl-Intermediate" onclick="setLevel('Intermediate')">中級<br>中学</button>
-          <button class="btn-lvl" id="lvl-Advanced" onclick="setLevel('Advanced')">上級<br>高校~</button>
-        </div>
-      </div>
-      <div class="card text-center">
         <h2>2. Activity / 学習内容</h2>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
           <button class="btn btn-primary" onclick="showView('vocabulary')">📚 Words<br>単語</button>
@@ -358,20 +402,30 @@ body {
         <div id="a-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;"></div>
         <button id="q-start" class="btn btn-primary" style="background:#059669; margin-top:15px;" onclick="startQuest()">クエスト開始</button>
       </div>
-    </div> <div id="vocabulary-view" class="hidden">
-      <div class="card text-center">
-        <div><span class="badge" id="v-lvl-badge"></span><span class="badge" id="v-cat-badge" style="background:var(--accent-color)"></span></div>
-        <div id="v-emoji" style="font-size: 5rem; margin: 0px 0;"></div>
-        <div class="lang-row"><div class="lang-label">English</div><div class="lang-text"><span id="v-en"></span><button class="btn-speak" onclick="speak('en')">🔊</button></div></div>
-        <div class="lang-row"><div class="lang-label">韓国語(ハングル)</div><div class="lang-text"><span id="v-ko"></span><button class="btn-speak" onclick="speak('ko')">🔊</button></div></div>
-        <div class="lang-row"><div class="lang-label">日本語</div><div class="lang-text"><span id="v-ja"></span><button class="btn-speak" onclick="speak('ja')">🔊</button></div></div>
-        <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 5px; margin-top: 5px;">
-          <button class="btn" style="background: #e2e8f0;" onclick="changeWord(-1)">◀ BACK</button>
-<button class="btn" style="background: #fef3c7;" onclick="shuffleWords()">🔀 SHUFFLE</button>
-<button class="btn btn-primary" onclick="changeWord(1)">NEXT ▶</button>
-        </div>
-      </div>
+    </div> 
+	<div id="vocabulary-view" class="hidden">
+  <div class="card text-center">
+    <div class="level-selector" id="v-level-selector">
+  <button class="btn btn-lvl" onclick="setVocabLevel('Beginner', this)">初級</button>
+  <button class="btn btn-lvl" onclick="setVocabLevel('Intermediate', this)">中級</button>
+  <button class="btn btn-lvl" onclick="setVocabLevel('Advanced', this)">上級</button>
+  <button class="btn btn-lvl" onclick="setVocabLevel('All', this)" style="background-color: var(--secondary-color) !important; color: white !important;">ALL</button>
+</div>
+
+    <div><span class="badge" id="v-lvl-badge">レベルを選択</span><span class="badge" id="v-cat-badge" style="background:var(--accent-color)"></span></div>
+    <div id="v-emoji" style="font-size: 5rem; margin: 0px 0;"></div>
+    
+    <div class="lang-row"><div class="lang-label">English</div><div class="lang-text"><span id="v-en"></span><button class="btn-speak" onclick="speak('en')">🔊</button></div></div>
+    <div class="lang-row"><div class="lang-label">韓国語(ハングル)</div><div class="lang-text"><span id="v-ko"></span><button class="btn-speak" onclick="speak('ko')">🔊</button></div></div>
+    <div class="lang-row"><div class="lang-label">日本語</div><div class="lang-text"><span id="v-ja"></span><button class="btn-speak" onclick="speak('ja')">🔊</button></div></div>
+    
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 5px; margin-top: 5px;">
+      <button class="btn" style="background: #e2e8f0;" onclick="changeWord(-1)">◀ BACK</button>
+      <button class="btn btn-primary" onclick="changeWord(1)">NEXT ▶</button>
+      <button class="btn" style="background: #fef3c7;" onclick="shuffleWords()">🔀 SHUFFLE</button>    
     </div>
+  </div>
+</div>
 
     <div id="grammar-choice-view" class="hidden">
       <div class="card text-center">
@@ -865,31 +919,73 @@ function startQuestMode(mode) {
     showView('quest');
 }
 
-function updateWord(){
-  const list = vocabularyData.filter(d=>d.level===currentLevel);
-  if(!list.length) return;
-  const d = list[vIndex];
-  document.getElementById('v-en').innerText = d.en;
-  document.getElementById('v-ko').innerText = d.sw;
-  document.getElementById('v-ja').innerText = d.ja;
-  document.getElementById('v-emoji').innerText = d.emoji;
-  document.getElementById('v-cat-badge').innerText = d.category;
+// 1. 【追加】単語ページ専用のレベル切り替え関数
+function setVocabLevel(lvl, element) {
+    currentLevel = lvl;
+    vIndex = 0; // 切り替えたら最初の単語に戻す
+    
+    // 1. すべてのレベルボタンから「active」クラスを消す
+    const allButtons = document.querySelectorAll('#v-level-selector .btn-lvl');
+    allButtons.forEach(btn => btn.classList.remove('active'));
+    
+    // 2. 今押されたボタンにだけ「active」クラスをつける（色が変わる）
+    if(element) {
+        element.classList.add('active');
+    }
+
+    // 3. バッジの表示を更新
+    const badge = document.getElementById('v-lvl-badge');
+    if(badge) {
+        badge.innerText = (lvl === 'All') ? '全レベル' : lvl;
+    }
+    
+    // 4. 単語の表示を更新
+    updateWord();
 }
 
+// 2. 【上書き】単語を表示する（ALL対応版）
+function updateWord(){
+  // currentLevelが'All'なら全データ、そうでなければレベルで絞り込む
+  const list = (currentLevel === 'All') 
+      ? vocabularyData 
+      : vocabularyData.filter(d => d.level === currentLevel);
+
+  if(!list.length) return;
+  const d = list[vIndex];
+  
+  // 各項目を画面に書き込む
+  document.getElementById('v-en').innerText = d.en || "";
+  document.getElementById('v-ko').innerText = d.sw || "";
+  document.getElementById('v-ja').innerText = d.ja || "";
+  document.getElementById('v-emoji').innerText = d.emoji || "";
+  document.getElementById('v-cat-badge').innerText = d.category || "";
+}
+
+// 3. 【上書き】次へ・前へ（ALL対応版）
 function changeWord(step){
-  const list = vocabularyData.filter(d => d.level === currentLevel);
+  const list = (currentLevel === 'All') 
+      ? vocabularyData 
+      : vocabularyData.filter(d => d.level === currentLevel);
+      
   if(!list.length) return;
   vIndex = (vIndex + step + list.length) % list.length;
   updateWord();
 }
 
+// 4. 【上書き】シャッフル（ALL対応版）
 function shuffleWords() {
-    const list = vocabularyData.filter(d => d.level === currentLevel);
+    const list = (currentLevel === 'All') 
+        ? vocabularyData 
+        : vocabularyData.filter(d => d.level === currentLevel);
+        
     if (list.length < 2) return;
+    
+    // 今と違う単語が出るまでランダムに回す
     let newIndex;
     do {
         newIndex = Math.floor(Math.random() * list.length);
-    } while (newIndex === vIndex);
+    } while (newIndex === vIndex && list.length > 1);
+
     vIndex = newIndex;
     updateWord();
 }
