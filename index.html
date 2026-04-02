@@ -582,10 +582,24 @@ function speakQ() {
 function speakLocal(id, lang) {
   window.speechSynthesis.cancel();
   let text = document.getElementById(id).innerText;
-  if(lang==='ko') text = text.replace(/[a-z]+/g, '');
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = (lang==='ko') ? 'ko-KR' : (lang==='en' ? 'en-US' : 'ja-JP');
-  window.speechSynthesis.speak(u);
+
+  if (lang === 'ko') {
+    // 【スマホ対策】記号や発音記号を徹底排除
+    text = text.replace(/\([^)]*\)/g, ''); // ()削除
+    text = text.replace(/[a-zA-Z0-9]/g, ''); // 英数字削除
+    text = text.replace(/[~～\-_.,?!:;]/g, ' '); // 記号をスペースに置換
+    text = text.replace(/[^가-힣\s]/g, ''); // ハングル以外を全部消す
+  }
+
+  const u = new SpeechSynthesisUtterance(text.trim());
+  u.lang = 'ko-KR';
+  // スマホは少しゆっくりめが安定します
+  u.rate = 0.8; 
+  
+  // スマホのバグ回避：一度キャンセルしてから少し遅らせて再生
+  setTimeout(() => {
+    window.speechSynthesis.speak(u);
+  }, 50);
 }
 </script>
 </body>
