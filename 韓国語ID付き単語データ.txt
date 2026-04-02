@@ -194,4 +194,4 @@ const vocabularyData = [
   { id: "V-148", en: "When", sw: "언제 eonje", ja: "いつ", emoji: "🕒", level: "Beginner", category: "Time" },
   { id: "V-149", en: "Who", sw: "누구 nugu", ja: "だれ", emoji: "👤", level: "Beginner", category: "People" },
   { id: "V-150", en: "Why", sw: "왜 wae", ja: "なぜ", emoji: "⁉️", level: "Beginner", category: "Thinking" },
-    ];
+  ];
