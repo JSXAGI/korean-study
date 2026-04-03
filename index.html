@@ -8,6 +8,20 @@
   <link rel="stylesheet" href="style.css">
 
   <script src="data.js"></script>
+  <link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<script>
+  // サービスワーカーをブラウザに登録する
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js')
+        .then(reg => console.log('PWA準備完了！', reg))
+        .catch(err => console.log('PWA登録失敗', err));
+    });
+  }
+</script>
 </head>
 
 <body>
@@ -26,8 +40,11 @@
         </div>
       </div>
 
-<div class="card text-center" style="background-color: #fff; border: 2px solid #15DAF6; padding: 8px 10px; border-radius: 12px; font-weight: bold; margin-bottom: 10px;">
-  <div class="level-badge-text">👽 PC利用時「ブラウザ75％縮小」での学習を推奨</div>
+<div class="card text-center" style="background-color: #fff; border: 2px solid #15DAF6; padding: 10px; border-radius: 12px; margin-bottom: 20px; font-size: 0.85rem; color: #475569; line-height: 1.6;">
+  <div>🖥️ PCの方はブラウザを <b>75%縮小</b> 推奨</div>
+  <div style="border-top: 1px solid #e2e8f0; margin-top: 5px; padding-top: 5px;">
+    📱 スマホで<b>「ホーム画面に追加」</b>するとオフライン利用も可能！
+  </div>
 </div>
 
       <div class="card text-center" style="border: 4px solid var(--accent-color);">
@@ -152,16 +169,25 @@ function shuffleWords() {
   updateWord();
 }
 
-/* 文法学習ロジック（原本復元） */
+/* 文法学習ロジック（修正版） */
 function updateGrammar() {
   const list = grammarData.filter(d => d.level === currentLevel);
-  if(!list.length) { alert("このレベルのデータはまだありません"); showView('grammar-choice'); return; }
+  if(!list.length) { 
+    alert("このレベルのデータはまだありません"); 
+    showView('grammar-choice'); 
+    return; 
+  }
   const d = list[gIndex % list.length];
-  document.getElementById('g-en').innerText = d.en_phrase;
-  document.getElementById('g-ko').innerText = d.sw_phrase;
-  document.getElementById('g-ja').innerText = d.ja_trans;
-  document.getElementById('g-exp').innerText = d.ja_explanation;
-  document.getElementById('g-cat-badge').innerText = d.category || d.title;
+
+  // 画面へのセット（d.sw_phrase を確実にセット）
+  document.getElementById('g-en').innerText = d.en_phrase || "";
+  document.getElementById('g-ko').innerText = d.sw_phrase || ""; 
+  document.getElementById('g-ja').innerText = d.ja_trans || "";
+  document.getElementById('g-exp').innerText = d.ja_explanation || "";
+  document.getElementById('g-cat-badge').innerText = d.category || d.title || "";
+
+  // 【重要】もしこれでも鳴らない場合のために、コンソールでデータを確認する命令（テスト用）
+  console.log("現在の文法データ:", d.sw_phrase);
 }
 
 function changeGrammar(s) {
@@ -233,25 +259,38 @@ function speakQ() {
 }
 
 function speakLocal(id, lang) {
-  // 1. 今しゃべっている音声を即座に止める
+  // 1. 再生中の音声を停止
   synth.cancel();
 
-  let text = document.getElementById(id).innerText;
+  const el = document.getElementById(id);
+  if (!el) return;
+  let text = el.innerText;
 
-  // 2. テキストの洗浄（以前作った最強の洗浄ロジックを流用）
+  // 2. テキストの洗浄
   if (lang === 'ko') {
+    // カッコ書きを削除
     text = text.replace(/\([^)]*\)/g, '').replace(/\[[^\]]*\]/g, '');
-    text = text.replace(/[^가-힣ㄱ-ㅎㅏ-ㅣ0-9\s\.\?\!]/g, '');
+    
+    // 【ここを修正】アルファベットの発音ルビだけを狙い撃ちして削除し、ハングルは残す
+    // 文末に続くアルファベットの羅列を消去
+    text = text.replace(/[a-zA-Z\s]{5,}/g, ''); 
   }
 
-  // 3. 固定した窓口に新しいテキストと設定を流し込む
+  // 3. 設定の流し込み
   utterance.text = text.trim();
   utterance.lang = (lang === 'ko') ? 'ko-KR' : (lang === 'en' ? 'en-US' : 'ja-JP');
   utterance.rate = 0.8;
 
-  // 4. 少しだけ間を置いてから再生（スマホのバグ回避用）
+  // 4. 再生（少し待つのがコツ）
   setTimeout(() => {
-    synth.speak(utterance);
+    // 洗浄後のテキストが空っぽじゃない時だけ再生
+    if (utterance.text.length > 0) {
+      synth.speak(utterance);
+    } else {
+      // 万が一空っぽになったら、元のテキストをそのまま流す（予備動作）
+      utterance.text = el.innerText;
+      synth.speak(utterance);
+    }
   }, 50);
 }
 </script>
