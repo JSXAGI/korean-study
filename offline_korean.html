@@ -1,0 +1,664 @@
+<!doctype html>
+<meta name="google" content="notranslate">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>韓国語学習 - 最終復元版</title>
+  
+<style>
+    :root {
+      --bg-image: url('https://raw.githubusercontent.com/JSXAGI/korean-study/main/korean.jpeg');
+      --bg-color: #fef3c7;
+      --surface-color: rgba(255, 255, 255, 0.8);
+      --text-color: #1e293b;
+      --primary-color: #f59e0b;
+      --secondary-color: #8b5cf6;
+      --accent-color: #10b981;
+      --header-height: 100px;
+    }  
+    * { box-sizing: border-box; font-family: 'Segoe UI', Meiryo, sans-serif; }
+    body, html { 
+      margin: 0; padding: 0; min-height: 100vh;
+      background-color: var(--bg-color); background-image: var(--bg-image);
+      background-size: cover; background-position: left 20% center !important;
+      background-attachment: fixed; background-repeat: no-repeat;
+      color: var(--text-color);
+    }
+
+    /* 原本のヘッダーデザイン */
+    .app-header {
+      position: fixed; top: 0; left: 0; right: 0; height: var(--header-height);
+      background-color: transparent; display: flex; align-items: center; z-index: 1000;
+    }
+    .home-link {
+      position: absolute; left: 20px; top: 15px;
+      background: white; color: var(--primary-color); padding: 5px; border-radius: 5px;
+      font-weight: bold; font-size: 2rem; border: none; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .app-title {
+      flex-grow: 1; text-align: center; color: #EF4123; text-shadow: 2px 2px 0px #fff;
+      font-weight: bold; font-size: 2.2rem; margin: 0;
+    }
+
+    /* メインコンテンツの余白調整（重なり防止） */
+    .main-content {
+      padding-top: calc(var(--header-height) + 20px);
+      padding-left: 20px; padding-right: 20px; padding-bottom: 40px;
+      max-width: 800px; margin: auto;
+    }
+
+    .card {
+      background: var(--surface-color); border-radius: 20px; padding: 25px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 4px solid #fff; margin-bottom: 20px;
+    }
+    
+    .btn {
+      cursor: pointer; border: none; border-radius: 12px; padding: 12px;
+      font-weight: bold; font-size: 1.1rem; display: inline-flex; align-items: center;
+      justify-content: center; transition: 0.2s;
+    }
+    .btn-primary { background-color: var(--primary-color); color: white; width: 100%; }
+    
+    /* 原本のレベルセレクター */
+    .level-selector { display: flex; justify-content: center; gap: 5px; margin-bottom: 15px; }
+    .btn-lvl { flex: 1; padding: 8px; border-radius: 8px; border: 1px solid #cbd5e1; background: white; font-size: 0.9rem; }
+    .btn-lvl.active { background: var(--primary-color); color: white; border-color: var(--primary-color); }
+
+    .lang-row { background: #f8fafc; padding: 12px 15px; border-radius: 15px; margin-bottom: 10px; border: 1px solid #e2e8f0; }
+    .lang-label { font-size: 0.75rem; color: #64748b; font-weight: bold; }
+    .lang-text { font-size: 1.6rem; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
+
+    .btn-speak { background: #e2e8f0; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-size: 1.4rem; }
+    .hidden { display: none; }
+    .text-center { text-align: center; }
+    .badge { padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; background: var(--secondary-color); color: white; margin: 2px; display: inline-block; }
+
+    /* クエスト画面用 */
+    .quest-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+	
+	/* 基本（スマホ用）：11pxなら一行に収まりやすい */
+.level-badge-text {
+  font-size: 11px;
+}
+
+/* 画面の横幅が600px以上の時（PC用） */
+@media (min-width: 600px) {
+  .level-badge-text {
+    font-size: 16px;
+  }
+}
+	
+</style>
+</head>
+
+<body>
+  <header class="app-header">
+    <button class="home-link" onclick="showView('home')">🏠</button>
+    <h1 class="app-title">韓国語学習</h1>
+  </header>
+
+<main class="main-content">
+    <div id="home-view">
+      <div class="card text-center">
+        <h2 style="margin-top:0;">📚 学習モード</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+          <button class="btn btn-primary" onclick="showView('vocabulary')">単語帳</button>
+          <button class="btn btn-primary" style="background:var(--secondary-color);" onclick="showView('grammar-choice')">文法解説</button>
+        </div>
+      </div>
+
+<div class="card text-center" style="background-color: #fff; border: 2px solid #15DAF6; padding: 10px; border-radius: 12px; margin-bottom: 20px; font-size: 0.85rem; color: #475569; line-height: 1.6;">
+  <div>🖥️ PCの方はブラウザを <b>75%縮小</b> 推奨</div>
+  <div style="border-top: 1px solid #e2e8f0; margin-top: 5px; padding-top: 5px;">
+    📱 スマホで<b>「ホーム画面に追加」</b>するとオフライン利用も可能！
+  </div>
+</div>
+
+      <div class="card text-center" style="border: 4px solid var(--accent-color);">
+        <h2 style="color:var(--accent-color); margin-top:0;">🧠 クエストモード</h2>
+        <button class="btn btn-primary" style="background:#059669; margin-bottom:12px;" onclick="startQuestMode()">🔤 単語を聞き取る</button>
+        <button class="btn btn-primary" style="background:#8b5cf6;" onclick="startGrammarQuest()">🧠 文法を聞き取る</button>
+      </div>
+    </div>
+
+    <div id="vocabulary-view" class="hidden">
+      <div class="card text-center">
+        <div class="level-selector" id="v-level-selector">
+          <button class="btn btn-lvl active" onclick="setVocabLevel('Beginner', this)">初級</button>
+          <button class="btn btn-lvl" onclick="setVocabLevel('Intermediate', this)">中級</button>
+          <button class="btn btn-lvl" onclick="setVocabLevel('Advanced', this)">上級</button>
+          <button class="btn btn-lvl" onclick="setVocabLevel('All', this)" style="background:#8b5cf6; color:white;">ALL</button>
+        </div>
+        <div><span id="v-lvl-badge" class="badge"></span> <span id="v-cat-badge" class="badge" style="background:var(--accent-color);"></span></div>
+        <div id="v-emoji" style="font-size: 5.5rem; margin: 15px 0;"></div>
+        <div class="lang-row"><div class="lang-label">ENGLISH</div><div class="lang-text"><span id="v-en"></span><button class="btn-speak" onclick="speakLocal('v-en','en')">🔊</button></div></div>
+        <div class="lang-row"><div class="lang-label">KOREAN</div><div class="lang-text"><span id="v-ko"></span><button class="btn-speak" onclick="speakLocal('v-ko','ko')">🔊</button></div></div>
+        <div class="lang-row"><div class="lang-label">JAPANESE</div><div class="lang-text"><span id="v-ja"></span><button class="btn-speak" onclick="speakLocal('v-ja','ja')">🔊</button></div></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px;">
+          <button class="btn" style="background:#e2e8f0;" onclick="changeWord(-1)">◀ BACK</button>
+          <button class="btn btn-primary" onclick="changeWord(1)">NEXT ▶</button>
+        </div>
+        <button class="btn btn-primary" style="margin-top:12px; background:var(--accent-color);" onclick="shuffleWords()">🔀 SHUFFLE (ランダム)</button>
+      </div>
+    </div>
+
+    <div id="grammar-choice-view" class="hidden">
+      <div class="card text-center">
+        <h2 style="margin-top:0;">レベルを選んでください</h2>
+        <div style="display: grid; gap: 12px;">
+          <button class="btn btn-primary" onclick="currentLevel='Beginner'; showGrammarView()">初級 (Beginner)</button>
+          <button class="btn btn-primary" style="background:var(--secondary-color);" onclick="currentLevel='Intermediate'; showGrammarView()">中級 (Intermediate)</button>
+          <button class="btn btn-primary" style="background:#ec4899;" onclick="currentLevel='Advanced'; showGrammarView()">上級 (Advanced)</button>
+          <button class="btn" style="background:#e2e8f0;" onclick="showView('home')">戻る</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="grammar-view" class="hidden">
+      <div class="card">
+        <div id="g-cat-badge" class="badge" style="display:block; text-align:center; margin-bottom:15px;"></div>
+        <div class="lang-row"><div class="lang-label">ENGLISH</div><div class="lang-text"><span id="g-en"></span><button class="btn-speak" onclick="speakLocal('g-en','en')">🔊</button></div></div>
+        <div class="lang-row"><div class="lang-label">KOREAN</div><div class="lang-text"><span id="g-ko"></span><button class="btn-speak" onclick="speakLocal('g-ko','ko')">🔊</button></div></div>
+        <div class="lang-row"><div class="lang-label">JAPANESE</div><div class="lang-text"><span id="g-ja"></span><button class="btn-speak" onclick="speakLocal('g-ja','ja')">🔊</button></div></div>
+        <div id="g-exp" style="margin-top:15px; padding:15px; background:white; border-radius:12px; font-size:1.1rem; border:1px solid #e2e8f0; line-height:1.5;"></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px;">
+          <button class="btn" style="background:#e2e8f0;" onclick="changeGrammar(-1)">◀ BACK</button>
+          <button class="btn btn-primary" onclick="changeGrammar(1)">NEXT ▶</button>
+        </div>
+        <button class="btn btn-primary" style="margin-top:12px; background:var(--accent-color);" onclick="shuffleGrammar()">🔀 SHUFFLE (ランダム)</button>
+      </div>
+    </div>
+
+    <div id="quest-view" class="hidden">
+      <div class="card text-center">
+        <h3 id="quest-title" style="margin-top:0; color:var(--secondary-color);">Listening Quest</h3>
+        <div id="q-box" style="margin: 30px 0;"></div>
+        <div id="a-grid" class="quest-grid"></div>
+        <button class="btn" style="margin-top:30px; width:100%; background:#e2e8f0;" onclick="showView('home')">クエストを終了する</button>
+      </div>
+    </div>
+</main>
+
+<script>
+const vocabularyData = [
+  /* --- 初級 (Beginner) --- */
+  // 生活・家 (Life / Home)
+  { id: "V-001", en: "Family", sw: "가족 gajok", ja: "家族(かぞく)", emoji: "👨‍👩‍👧‍👦", level: "Beginner", category: "Life" },
+  { id: "V-002", en: "Home", sw: "집 jip", ja: "家(いえ)", emoji: "🏠", level: "Beginner", category: "Life" },
+  { id: "V-003", en: "Kitchen", sw: "부엌 bueok", ja: "台所(だいどころ)", emoji: "🍳", level: "Beginner", category: "Life" },
+  { id: "V-004", en: "Window", sw: "창문 changmun", ja: "窓(まど)", emoji: "🪟", level: "Beginner", category: "Life" },
+  { id: "V-005", en: "Door", sw: "문 mun", ja: "扉(とびら)", emoji: "🚪", level: "Beginner", category: "Life" },
+  { id: "V-006", en: "Friend", sw: "친구 chingu", ja: "友達(ともだち)", emoji: "🤝", level: "Beginner", category: "Life" },
+  { id: "V-007", en: "Money", sw: "돈 don", ja: "お金(おかね)", emoji: "💰", level: "Beginner", category: "Life" },
+  { id: "V-008", en: "Shop", sw: "가게 gage", ja: "店(みせ)", emoji: "🏪", level: "Beginner", category: "Life" },
+  { id: "V-009", en: "Market", sw: "시장 sijang", ja: "市場(いちば)", emoji: "🛒", level: "Beginner", category: "Life" },
+
+  // 家族 (Family)
+  { id: "V-010", en: "Father", sw: "아버지 abeoji", ja: "父(ちち)", emoji: "👨", level: "Beginner", category: "Family" },
+  { id: "V-011", en: "Mother", sw: "어머니 eomeoni", ja: "母(はは)", emoji: "👩", level: "Beginner", category: "Family" },
+  { id: "V-012", en: "Child", sw: "아이 ai", ja: "子供(こども)", emoji: "🧒", level: "Beginner", category: "Family" },
+
+  // 教育・学校 (Education / School)
+  { id: "V-013", en: "Teacher", sw: "선생님 seonsaengnim", ja: "先生(せんせい)", emoji: "👩‍🏫", level: "Beginner", category: "Education" },
+  { id: "V-014", en: "Student", sw: "학생 haksaeng", ja: "学生(がくせい)", emoji: "🎓", level: "Beginner", category: "Education" },
+  { id: "V-015", en: "School", sw: "학교 hakgyo", ja: "学校(がっこう)", emoji: "🏫", level: "Beginner", category: "Education" },
+  
+  // 物 (Object)
+  { id: "V-016", en: "Book", sw: "책 chaek", ja: "本(ほん)", emoji: "📘", level: "Beginner", category: "Object" },
+  { id: "V-017", en: "Pen", sw: "펜 pen", ja: "ペン", emoji: "🖊️", level: "Beginner", category: "Object" },
+  { id: "V-018", en: "Desk", sw: "책상 chaeksang", ja: "机(つくえ)", emoji: "💺", level: "Beginner", category: "Object" },
+  { id: "V-019", en: "Chair", sw: "의자 uija", ja: "椅子(いす)", emoji: "🪑", level: "Beginner", category: "Object" },
+  { id: "V-020", en: "Phone", sw: "전화 jeonhwa", ja: "電話(でんわ)", emoji: "📱", level: "Beginner", category: "Object" },
+  { id: "V-021", en: "Bag", sw: "가방 gabang", ja: "かばん", emoji: "👜", level: "Beginner", category: "Object" },
+
+  // 飲食 (Food)
+  { id: "V-022", en: "Food", sw: "음식 eumsik", ja: "食べ物(たべもの)", emoji: "🍚", level: "Beginner", category: "Food" },
+  { id: "V-023", en: "Water", sw: "물 mul", ja: "水(みず)", emoji: "💧", level: "Beginner", category: "Food" },
+  { id: "V-024", en: "Rice", sw: "밥 bap", ja: "ご飯(ごはん)", emoji: "🍚", level: "Beginner", category: "Food" },
+  { id: "V-025", en: "Bread", sw: "빵 ppang", ja: "パン", emoji: "🍞", level: "Beginner", category: "Food" },
+  { id: "V-026", en: "Fruit", sw: "과일 gwail", ja: "果物(くだもの)", emoji: "🍎", level: "Beginner", category: "Food" },
+  { id: "V-027", en: "Tea", sw: "차 cha", ja: "お茶(おちゃ)", emoji: "🍵", level: "Beginner", category: "Food" },
+  { id: "V-028", en: "Milk", sw: "우유 uyu", ja: "牛乳(ぎゅうにゅう)", emoji: "🥛", level: "Beginner", category: "Food" },
+  
+  // 時間 (Time) - 重複を統合
+  { id: "V-029", en: "Morning", sw: "아침 achim", ja: "朝(あさ)", emoji: "🌅", level: "Beginner", category: "Time" }, 
+  { id: "V-030", en: "Noon", sw: "점심 jeomsim", ja: "昼(ひる)", emoji: "☀️", level: "Beginner", category: "Time" }, 
+  { id: "V-031", en: "Evening", sw: "저녁 jeonyeok", ja: "夕方(ゆうがた)", emoji: "🌇", level: "Beginner", category: "Time" },   
+  { id: "V-032", en: "Night", sw: "밤 bam", ja: "夜(よる)", emoji: "🌙", level: "Beginner", category: "Time" }, 
+  { id: "V-033", en: "Today", sw: "오늘 oneul", ja: "今日(きょう)", emoji: "📅", level: "Beginner", category: "Time" }, 
+  { id: "V-034", en: "Tomorrow", sw: "내일 naeil", ja: "明日(あした)", emoji: "📆", level: "Beginner", category: "Time" }, 
+  { id: "V-035", en: "Now", sw: "지금 jigeum", ja: "今(いま)", emoji: "⏱️", level: "Beginner", category: "Time" }, 
+  { id: "V-036", en: "Week", sw: "주 ju", ja: "週(しゅう)", emoji: "📆", level: "Beginner", category: "Time" }, 
+  { id: "V-037", en: "Month", sw: "달 dal", ja: "月(つき)", emoji: "🗓️", level: "Beginner", category: "Time" }, 
+  { id: "V-038", en: "Year", sw: "년 nyeon", ja: "年(とし)", emoji: "📘", level: "Beginner", category: "Time" }, 
+
+  // 場所・交通 (Place / Transport)
+  { id: "V-039", en: "Street", sw: "거리 geori", ja: "通り(とおり)", emoji: "🛣️", level: "Beginner", category: "Place" }, 
+  { id: "V-040", en: "City", sw: "도시 dosi", ja: "都市(とし)", emoji: "🏙️", level: "Beginner", category: "Place" }, 
+  { id: "V-041", en: "Country", sw: "나라 nara", ja: "国(くに)", emoji: "🌏", level: "Beginner", category: "Place" }, 
+  { id: "V-042", en: "Park", sw: "공원 gongwon", ja: "公園(こうえん)", emoji: "🌳", level: "Beginner", category: "Place" }, 
+  { id: "V-043", en: "Hospital", sw: "병원 byeongwon", ja: "病院(びょういん)", emoji: "🏥", level: "Beginner", category: "Place" }, 
+  { id: "V-044", en: "Bus", sw: "버스 beoseu", ja: "バス", emoji: "🚌", level: "Beginner", category: "Transport" }, 
+  { id: "V-045", en: "Train", sw: "기차 gicha", ja: "電車(でんしゃ)", emoji: "🚆", level: "Beginner", category: "Transport" }, 
+  { id: "V-046", en: "Station", sw: "역 yeok", ja: "駅(えき)", emoji: "🚉", level: "Beginner", category: "Transport" }, 
+
+  // 基本動詞 (Action)
+  { id: "V-047", en: "Walk", sw: "걷다 geotda", ja: "歩く(あるく)", emoji: "🚶", level: "Beginner", category: "Action" }, 
+  { id: "V-048", en: "Run", sw: "달리다 dallida", ja: "走る(はしる)", emoji: "🏃", level: "Beginner", category: "Action" }, 
+  { id: "V-049", en: "Eat", sw: "먹다 meokda", ja: "食べる(たべる)", emoji: "🍴", level: "Beginner", category: "Action" }, 
+  { id: "V-050", en: "Drink", sw: "마시다 masida", ja: "飲む(のむ)", emoji: "🥤", level: "Beginner", category: "Action" }, 
+  { id: "V-051", en: "Sleep", sw: "자다 jada", ja: "寝る(ねる)", emoji: "😴", level: "Beginner", category: "Action" },
+  { id: "V-052", en: "Buy", sw: "사다 sada", ja: "買う(かう)", emoji: "🛍️", level: "Beginner", category: "Action" }, 
+  { id: "V-053", en: "Wait", sw: "기다리다 gidarida", ja: "待つ(まつ)", emoji: "⏳", level: "Beginner", category: "Action" }, 
+
+  // 感情・状態 (Feeling)
+  { id: "V-054", en: "Happy", sw: "행복하다 haengbokhada", ja: "幸せ(しあわせ)", emoji: "😊", level: "Beginner", category: "Feeling" }, 
+  { id: "V-055", en: "Sad", sw: "슬프다 seulpeuda", ja: "悲しい(かなしい)", emoji: "😢", level: "Beginner", category: "Feeling" }, 
+  { id: "V-056", en: "Hot", sw: "덥다 deopda", ja: "暑い(あつい)", emoji: "🔥", level: "Beginner", category: "Feeling" }, 
+  { id: "V-057", en: "Cold", sw: "춥다 chupda", ja: "寒い(さむい)", emoji: "❄️", level: "Beginner", category: "Feeling" },
+  { id: "V-058", en: "Easy", sw: "쉽다 swipda", ja: "簡単(かんたん)", emoji: "👌", level: "Beginner", category: "Feeling" }, 
+  { id: "V-059", en: "Difficult", sw: "어렵다 eoryeopda", ja: "難しい(むずかしい)", emoji: "🤔", level: "Beginner", category: "Feeling" }, 
+
+  /* --- 中級 (Intermediate) --- */
+  { id: "V-060", en: "Travel", sw: "여행 yeohaeng", ja: "旅行(りょこう)", emoji: "✈️", level: "Intermediate", category: "Life" }, 
+  { id: "V-061", en: "Experience", sw: "경험 gyeongheom", ja: "経験(けいけん)", emoji: "🧠", level: "Intermediate", category: "Life" }, 
+  { id: "V-062", en: "Decision", sw: "결정 gyeoljeong", ja: "決定", emoji: "✅", level: "Intermediate", category: "Work" }, 
+  { id: "V-063", en: "Problem", sw: "문제 munje", ja: "問題", emoji: "❗", level: "Intermediate", category: "Life" }, 
+  { id: "V-064", en: "Culture", sw: "문화 munhwa", ja: "文化", emoji: "🎎", level: "Intermediate", category: "Life" },
+  
+  /* --- 中級 (Intermediate) 続き --- */
+  // 仕事・ビジネス (Work) - 重複を1つに集約
+  { id: "V-065", en: "Company", sw: "회사 hoesa", ja: "会社(かいしゃ)", emoji: "🏢", level: "Intermediate", category: "Work" },
+  { id: "V-066", en: "Job", sw: "직업 jig-eop", ja: "職業(しょくぎょう)", emoji: "🧑‍💼", level: "Intermediate", category: "Work" },
+  { id: "V-067", en: "Work", sw: "일 il", ja: "仕事(しごと)", emoji: "💼", level: "Intermediate", category: "Work" },
+  { id: "V-068", en: "Meeting", sw: "회의 hoeui", ja: "会議(かいぎ)", emoji: "📊", level: "Intermediate", category: "Work" },
+  { id: "V-069", en: "Project", sw: "프로젝트 peurojekteu", ja: "企画(きかく)", emoji: "📁", level: "Intermediate", category: "Work" },
+  { id: "V-070", en: "Plan", sw: "계획 gyehoek", ja: "計画(けいかく)", emoji: "📝", level: "Intermediate", category: "Work" },
+  { id: "V-071", en: "Schedule", sw: "일정 iljeong", ja: "予定(よてい)", emoji: "📅", level: "Intermediate", category: "Work" },
+  { id: "V-072", en: "Deadline", sw: "마감 magam", ja: "締切(しめきり)", emoji: "⏰", level: "Intermediate", category: "Work" },
+  { id: "V-073", en: "Responsibility", sw: "책임 chaegim", ja: "責任(せきにん)", emoji: "⚖️", level: "Intermediate", category: "Work" },
+  { id: "V-074", en: "Result", sw: "결과 gyeolgwa", ja: "結果(けっか)", emoji: "📈", level: "Intermediate", category: "Work" },
+  { id: "V-075", en: "Agreement", sw: "동의 dongui", ja: "同意", emoji: "✍️", level: "Intermediate", category: "Work" },
+  { id: "V-076", en: "Request", sw: "요청 yocheong", ja: "依頼", emoji: "📨", level: "Intermediate", category: "Work" },
+  { id: "V-077", en: "Response", sw: "응답 eungdap", ja: "応答", emoji: "📩", level: "Intermediate", category: "Work" },
+
+  // 社会・抽象概念 (Society / Abstract)
+  { id: "V-078", en: "Society", sw: "사회 sahoe", ja: "社会(しゃかい)", emoji: "🌍", level: "Intermediate", category: "Society" },
+  { id: "V-079", en: "Economy", sw: "경제 gyeongje", ja: "経済(けいざい)", emoji: "💹", level: "Intermediate", category: "Society" },
+  { id: "V-080", en: "Politics", sw: "정치 jeongchi", ja: "政治(せいじ)", emoji: "🏛️", level: "Intermediate", category: "Society" },
+  { id: "V-081", en: "Law", sw: "법 beop", ja: "法律(ほうりつ)", emoji: "⚖️", level: "Intermediate", category: "Society" },
+  { id: "V-082", en: "Environment", sw: "환경 hwangyeong", ja: "環境(かんきょう)", emoji: "🌱", level: "Intermediate", category: "Society" },
+  { id: "V-083", en: "Tradition", sw: "전통 jeontong", ja: "伝統(でんとう)", emoji: "🏮", level: "Intermediate", category: "Society" },
+  { id: "V-084", en: "History", sw: "역사 yeoksa", ja: "歴史(れきし)", emoji: "📜", level: "Intermediate", category: "Society" },
+
+  // 技術・思考 (Technology / Thinking)
+  { id: "V-085", en: "Technology", sw: "기술 gisul", ja: "技術(ぎじゅつ)", emoji: "💻", level: "Intermediate", category: "Technology" },
+  { id: "V-086", en: "Information", sw: "정보 jeongbo", ja: "情報(じょうほう)", emoji: "ℹ️", level: "Intermediate", category: "Technology" },
+  { id: "V-087", en: "Data", sw: "데이터 deiteo", ja: "データ", emoji: "📊", level: "Intermediate", category: "Technology" },
+  { id: "V-088", en: "Solution", sw: "해결 haegyeol", ja: "解決", emoji: "💡", level: "Intermediate", category: "Thinking" },
+  { id: "V-089", en: "Reason", sw: "이유 iyu", ja: "理由(りゆう)", emoji: "🧩", level: "Intermediate", category: "Thinking" },
+  { id: "V-090", en: "Opinion", sw: "의견 uigyeon", ja: "意見(いけん)", emoji: "💬", level: "Intermediate", category: "Thinking" },
+  { id: "V-091", en: "Choice", sw: "선택 seontaek", ja: "選択", emoji: "🔀", level: "Intermediate", category: "Thinking" },
+  { id: "V-092", en: "Goal", sw: "목표 mokpyo", ja: "目標", emoji: "🎯", level: "Intermediate", category: "Life" },
+
+  // 生活習慣・健康 (Life / Health)
+  { id: "V-093", en: "Health", sw: "건강 geongang", ja: "健康(けんこう)", emoji: "💪", level: "Intermediate", category: "Life" },
+  { id: "V-094", en: "Exercise", sw: "운동 undong", ja: "運動(うんどう)", emoji: "🏃", level: "Intermediate", category: "Life" },
+  { id: "V-095", en: "Habit", sw: "습관 seupgwan", ja: "習慣(しゅうかん)", emoji: "🔁", level: "Intermediate", category: "Life" },
+  { id: "V-096", en: "Stress", sw: "스트레스 seuteureseu", ja: "ストレス", emoji: "😣", level: "Intermediate", category: "Life" },
+  { id: "V-097", en: "Trust", sw: "신뢰 silloe", ja: "信頼(しらい)", emoji: "🔒", level: "Intermediate", category: "Life" },
+  { id: "V-098", en: "Value", sw: "가치 gachi", ja: "価値", emoji: "💎", level: "Intermediate", category: "Life" },
+  { id: "V-099", en: "Balance", sw: "균형 gyunhyeong", ja: "バランス", emoji: "⚖️", level: "Intermediate", category: "Life" },
+  
+  /* --- 上級 (Advanced) --- */
+  // 概念・哲学 (Concept / Philosophy)
+  { id: "V-100", en: "Success", sw: "성공 seonggong", ja: "成功(せいこう)", emoji: "🏆", level: "Advanced", category: "Life" },
+  { id: "V-101", en: "Failure", sw: "실패 silpae", ja: "失敗(しっぱい)", emoji: "❌", level: "Advanced", category: "Life" },
+  { id: "V-102", en: "Growth", sw: "성장 seongjang", ja: "成長(せいちょう)", emoji: "📈", level: "Advanced", category: "Life" },
+  { id: "V-103", en: "Change", sw: "변화 byeonhwa", ja: "変化(へんか)", emoji: "🔄", level: "Advanced", category: "Life" },
+  { id: "V-104", en: "Challenge", sw: "도전 dojeon", ja: "挑戦(ちょうせん)", emoji: "🏔️", level: "Advanced", category: "Life" },
+  { id: "V-105", en: "Vision", sw: "비전 bijeon", ja: "展望(てんぼう)", emoji: "🔭", level: "Advanced", category: "Life" },
+  { id: "V-106", en: "Innovation", sw: "혁신 hyeoksin", ja: "革新(かくしん)", emoji: "💡", level: "Advanced", category: "Work" },
+  { id: "V-107", en: "Perspective", sw: "관점 gwanjeom", ja: "観点(かんてん)", emoji: "👁️", level: "Advanced", category: "Thinking" },
+  { id: "V-108", en: "Integrity", sw: "정직 jeongjik", ja: "誠実(せいじつ)", emoji: "🕊️", level: "Advanced", category: "Life" },
+  { id: "V-109", en: "Commitment", sw: "헌신 heonsin", ja: "献身(けんしん)", emoji: "🔥", level: "Advanced", category: "Life" },
+
+  // ビジネス・高度専門 (Advanced Work / Management)
+  { id: "V-110", en: "Coordination", sw: "조정 jojeong", ja: "調整(ちょうせい)", emoji: "🎛️", level: "Advanced", category: "Work" },
+  { id: "V-111", en: "Leadership", sw: "리더십 rideosip", ja: "指導力", emoji: "🧑‍✈️", level: "Advanced", category: "Work" },
+  { id: "V-112", en: "Judgment", sw: "판단 pandan", ja: "判断(ぱんだん)", emoji: "⚖️", level: "Advanced", category: "Life" },
+  { id: "V-113", en: "Consistency", sw: "일관성 ilgwanseong", ja: "一貫性", emoji: "🔁", level: "Advanced", category: "Life" },
+  { id: "V-114", en: "Discipline", sw: "규율 gyuyul", ja: "規律(きりつ)", emoji: "📏", level: "Advanced", category: "Life" },
+  { id: "V-115", en: "Optimization", sw: "최적화 choejeokhwa", ja: "最適化", emoji: "⚙️", level: "Advanced", category: "Work" },
+  { id: "V-116", en: "Awareness", sw: "인식 insik", ja: "認識(にんしき)", emoji: "👀", level: "Advanced", category: "Life" },
+  { id: "V-117", en: "Evaluation", sw: "평가 pyeongga", ja: "評価(ひょうか)", emoji: "📊", level: "Advanced", category: "Work" },
+  { id: "V-118", en: "Collaboration", sw: "협력 hyeomnyeok", ja: "協力(きょうりょく)", emoji: "🧩", level: "Advanced", category: "Work" },
+  { id: "V-119", en: "Efficiency", sw: "효율 hyoyul", ja: "効率(こうりつ)", emoji: "⚡", level: "Advanced", category: "Work" },
+  { id: "V-120", en: "Strategy", sw: "전략 jeollyak", ja: "戦略(ぜんりゃく)", emoji: "♟️", level: "Advanced", category: "Work" },
+
+  // 社会・権利・科学 (Society / Science)
+  { id: "V-121", en: "Justice", sw: "정의 jeong-ui", ja: "正義(せいぎ)", emoji: "⚖️", level: "Advanced", category: "Society" },
+  { id: "V-122", en: "Liberty", sw: "자유 jayu", ja: "自由(じゆう)", emoji: "🕊️", level: "Advanced", category: "Society" },
+  { id: "V-123", en: "Equality", sw: "평등 pyeongdeung", ja: "平等(びょうどう)", emoji: "🤝", level: "Advanced", category: "Society" },
+  { id: "V-124", en: "Development", sw: "개발 gaebal", ja: "開発(かいはつ)", emoji: "🏗️", level: "Advanced", category: "Technology" },
+  { id: "V-125", en: "Sustainability", sw: "지속가능성 jisokganeungseong", ja: "持続可能性", emoji: "♾️", level: "Advanced", category: "Society" },
+  { id: "V-126", en: "Knowledge", sw: "지식 jisik", ja: "知識(ちしき)", emoji: "📖", level: "Advanced", category: "Education" },
+  { id: "V-127", en: "Analysis", sw: "분석 bunseok", ja: "分析(ぶんせき)", emoji: "🧪", level: "Advanced", category: "Thinking" },
+  { id: "V-128", en: "Influence", sw: "영향 yeonghyang", ja: "影響(えいきょう)", emoji: "🌊", level: "Advanced", category: "Society" },
+  { id: "V-129", en: "Direction", sw: "방향 banghyang", ja: "方向(ほうこう)", emoji: "🧭", level: "Advanced", category: "Life" },
+
+  // その他高度な語彙
+  { id: "V-130", en: "Resolution", sw: "결의 gyeoryui", ja: "決意", emoji: "✊", level: "Advanced", category: "Thinking" },
+  { id: "V-131", en: "Potential", sw: "잠재력 jamjaeryeok", ja: "潜在能力", emoji: "🌟", level: "Advanced", category: "Life" },
+  { id: "V-132", en: "Transformation", sw: "변형 byeonhyeong", ja: "変容", emoji: "🦋", level: "Advanced", category: "Science" },
+  { id: "V-133", en: "Perspective", sw: "시각 sigak", ja: "視点", emoji: "👓", level: "Advanced", category: "Thinking" },
+  
+  /* --- 追加推奨：日常動作・状態 --- */
+  // 必須動詞 (Essential Verbs)
+  { id: "V-134", en: "Go", sw: "가다 gada", ja: "行く", emoji: "🏃‍♂️", level: "Beginner", category: "Action" },
+  { id: "V-135", en: "Come", sw: "오다 oda", ja: "来る", emoji: "🚶‍♂️", level: "Beginner", category: "Action" },
+  { id: "V-136", en: "Do", sw: "하다 hada", ja: "する", emoji: "✨", level: "Beginner", category: "Action" },
+  { id: "V-137", en: "Look/See", sw: "보다 boda", ja: "見る", emoji: "👁️", level: "Beginner", category: "Action" },
+  { id: "V-138", en: "Listen/Hear", sw: "듣다 deutda", ja: "聴く", emoji: "👂", level: "Beginner", category: "Action" },
+  { id: "V-139", en: "Speak/Talk", sw: "말하다 malhada", ja: "話す", emoji: "🗣️", level: "Beginner", category: "Action" },
+
+  // 状態・様子 (Condition)
+  { id: "V-140", en: "Good/Like", sw: "좋다 jota", ja: "良い/好き", emoji: "👍", level: "Beginner", category: "Feeling" },
+  { id: "V-141", en: "Bad", sw: "나쁘다 nappeuda", ja: "悪い", emoji: "👎", level: "Beginner", category: "Feeling" },
+  { id: "V-142", en: "Many/Much", sw: "많다 manta", ja: "多い", emoji: "➕", level: "Beginner", category: "Condition" },
+  { id: "V-143", en: "Few/Little", sw: "적다 jeokda", ja: "少ない", emoji: "➖", level: "Beginner", category: "Condition" },
+  { id: "V-144", en: "Big", sw: "크다 keuda", ja: "大きい", emoji: "🐘", level: "Beginner", category: "Condition" },
+  { id: "V-145", en: "Small", sw: "작다 jakda", ja: "小さい", emoji: "🐭", level: "Beginner", category: "Condition" },
+
+  // 疑問詞 (Interrogatives) - 会話の核
+  { id: "V-146", en: "What", sw: "무엇 mueot", ja: "何", emoji: "❓", level: "Beginner", category: "Thinking" },
+  { id: "V-147", en: "Where", sw: "어디 eodi", ja: "どこ", emoji: "📍", level: "Beginner", category: "Place" },
+  { id: "V-148", en: "When", sw: "언제 eonje", ja: "いつ", emoji: "🕒", level: "Beginner", category: "Time" },
+  { id: "V-149", en: "Who", sw: "누구 nugu", ja: "だれ", emoji: "👤", level: "Beginner", category: "People" },
+  { id: "V-150", en: "Why", sw: "왜 wae", ja: "なぜ", emoji: "⁉️", level: "Beginner", category: "Thinking" },
+  ];
+
+const grammarData = [
+  { id: "G-001", category: "挨拶", title: "基本の挨拶", sw_phrase: "안녕하세요 annyeonghaseyo", en_phrase: "Hello", ja_trans: "こんにちは", ja_explanation: "最も一般的な丁寧な挨拶です。", level: "Beginner" },
+  { id: "G-002", category: "挨拶", title: "感謝の表現", sw_phrase: "감사합니다 gamsahamnida", en_phrase: "Thank you", ja_trans: "ありがとうございます", ja_explanation: "公式な場でも使える感謝の言葉です。", level: "Beginner" },
+  { id: "G-003", category: "挨拶", title: "謝罪の表現", sw_phrase: "죄송합니다 joesonghamnida", en_phrase: "I'm sorry", ja_trans: "ごめんなさい", ja_explanation: "目上の人や公の場で使う謝罪です。", level: "Beginner" },
+  { id: "G-004", category: "挨拶", title: "肯定の返事", sw_phrase: "네 ne", en_phrase: "Yes", ja_trans: "はい", ja_explanation: "同意や返事の基本です。", level: "Beginner" },
+  { id: "G-005", category: "挨拶", title: "否定の返事", sw_phrase: "아니요 aniyo", en_phrase: "No", ja_trans: "いいえ", ja_explanation: "丁寧な否定の表現です。", level: "Beginner" },
+  { id: "G-006", category: "挨拶", title: "出会いの挨拶", sw_phrase: "만나서 반갑습니다 mannaseo bangapseumnida", en_phrase: "Nice to meet you", ja_trans: "お会いできて嬉しいです", ja_explanation: "初対面の時の丁寧な表現です。", level: "Beginner" },
+  { id: "G-007", category: "挨拶", title: "別れの挨拶(去る人へ)", sw_phrase: "안녕히 가세요 annyeonghi gaseyo", en_phrase: "Goodbye (to someone leaving)", ja_trans: "さようなら（お気をつけて）", ja_explanation: "去っていく人に対して使う別れの挨拶です。", level: "Beginner" },
+  { id: "G-008", category: "挨拶", title: "別れの挨拶(残る人へ)", sw_phrase: "안녕히 계세요 annyeonghi gyeseyo", en_phrase: "Goodbye (to someone staying)", ja_trans: "さようなら（お元気で）", ja_explanation: "自分が去る際、残る人に対して使う挨拶です。", level: "Beginner" },
+  { id: "G-009", category: "挨拶", title: "食事の前の挨拶", sw_phrase: "잘 먹겠습니다 jal meokgetseumnida", en_phrase: "I will eat well", ja_trans: "いただきます", ja_explanation: "食事を始める前の挨拶です。", level: "Beginner" },
+  { id: "G-010", category: "挨拶", title: "食事の後の挨拶", sw_phrase: "잘 먹었습니다 jal meogeotseumnida", en_phrase: "I ate well", ja_trans: "ごちそうさまでした", ja_explanation: "食事が終わった後の挨拶です。", level: "Beginner" },
+  { id: "G-011", category: "自己紹介", title: "名前を名乗る", sw_phrase: "제 이름은 ...입니다 je ireumeun ...imnida", en_phrase: "My name is ...", ja_trans: "私の名前は...です", ja_explanation: "自分の名前を伝える時の基本表現です。", level: "Beginner" },
+  { id: "G-012", category: "自己紹介", title: "職業を言う", sw_phrase: "저는 학생입니다 jeoneun haksengimnida", en_phrase: "I am a student", ja_trans: "私は学生です", ja_explanation: "職業を伝える時の表現です。", level: "Beginner" },
+  { id: "G-013", category: "自己紹介", title: "出身を言う", sw_phrase: "일본에서 왔습니다 ilboneseo watseumnida", en_phrase: "I came from Japan", ja_trans: "日本から来ました", ja_explanation: "自分の出身地を伝える表現です。", level: "Beginner" },
+  { id: "G-014", category: "疑問", title: "名前を尋ねる", sw_phrase: "이름이 무엇입니까? ireumi mueosimnikka?", en_phrase: "What is your name?", ja_trans: "お名前は何ですか？", ja_explanation: "相手の名前を尋ねる丁寧な表現です。", level: "Beginner" },
+  { id: "G-015", category: "疑問", title: "場所を尋ねる", sw_phrase: "화장실이 어디예요? hwajangsiri eodiyeyo?", en_phrase: "Where is the bathroom?", ja_trans: "トイレはどこですか？", ja_explanation: "場所を尋ねる時に非常によく使う表現です。", level: "Beginner" },
+  { id: "G-016", category: "疑問", title: "値段を尋ねる", sw_phrase: "이거 얼마예요? igeo eolmayeyo?", en_phrase: "How much is this?", ja_trans: "これはいくらですか？", ja_explanation: "買い物の時に必須の表現です。", level: "Beginner" },
+  { id: "G-017", category: "疑問", title: "国籍を尋ねる", sw_phrase: "어느 나라 사람이에요? eoneu nara saramieyo?", en_phrase: "Which country are you from?", ja_trans: "どこの国の人ですか？", ja_explanation: "相手の国籍や出身を尋ねる表現です。", level: "Beginner" },
+  { id: "G-018", category: "疑問", title: "時間を尋ねる", sw_phrase: "지금 몇 시예요? jigeum myeot siyeyo?", en_phrase: "What time is it now?", ja_trans: "今何時ですか？", ja_explanation: "現在の時刻を尋ねる表現です。", level: "Beginner" },
+  { id: "G-019", category: "意思", title: "欲しいと言う", sw_phrase: "... 주세요 ... juseyo", en_phrase: "Give me ..., please", ja_trans: "...をください", ja_explanation: "注文やお願いをする時の定番表現です。", level: "Beginner" },
+  { id: "G-020", category: "意思", title: "好きと言う", sw_phrase: "좋아해요 joahaeyo", en_phrase: "I like it", ja_trans: "好きです", ja_explanation: "好みや愛情を伝える表現です。", level: "Beginner" },
+  { id: "G-021", category: "状態", title: "暑い", sw_phrase: "더워요 deowoyo", en_phrase: "It's hot", ja_trans: "暑いです", ja_explanation: "天候や体感の暑さを表します。", level: "Beginner" },
+  { id: "G-022", category: "状態", title: "寒い", sw_phrase: "추워よ chuwoyo", en_phrase: "It's cold", ja_trans: "寒いです", ja_explanation: "天候や体感の寒さを表します。", level: "Beginner" },
+  { id: "G-023", category: "状態", title: "美味しい", sw_phrase: "맛있어요 masisseoyo", en_phrase: "It's delicious", ja_trans: "美味しいです", ja_explanation: "味を褒める時の表現です。", level: "Beginner" },
+  { id: "G-024", category: "状態", title: "お腹が空いた", sw_phrase: "배고파요 baegopayo", en_phrase: "I'm hungry", ja_trans: "お腹が空きました", ja_explanation: "空腹を伝える表現です。", level: "Beginner" },
+  { id: "G-025", category: "状態", title: "疲れた", sw_phrase: "피곤해요 pigonhaeyo", en_phrase: "I'm tired", ja_trans: "疲れました", ja_explanation: "疲労を伝える表現です。", level: "Beginner" },
+  { id: "G-026", category: "行動", title: "行く", sw_phrase: "가요 gayo", en_phrase: "I go / I'm going", ja_trans: "行きます", ja_explanation: "移動の基本動詞です。", level: "Beginner" },
+  { id: "G-027", category: "行動", title: "来る", sw_phrase: "わよ wayo", en_phrase: "I come / I'm coming", ja_trans: "来ます", ja_explanation: "移動の基本動詞です。", level: "Beginner" },
+  { id: "G-028", category: "行動", title: "食べる", sw_phrase: "먹어요 meogeoyo", en_phrase: "I eat / I'm eating", ja_trans: "食べます", ja_explanation: "食事の基本動詞です。", level: "Beginner" },
+  { id: "G-029", category: "行動", title: "見る", sw_phrase: "ばよ bayo", en_phrase: "I see / I watch", ja_trans: "見ます", ja_explanation: "視覚の基本動詞です。", level: "Beginner" },
+  { id: "G-030", category: "行動", title: "寝る", sw_phrase: "ざよ jayo", en_phrase: "I sleep / I'm sleeping", ja_trans: "寝ます", ja_explanation: "睡眠の基本動詞です。", level: "Beginner" },
+  { id: "G-031", category: "行動", title: "話す", sw_phrase: "말해요 malhaeyo", en_phrase: "I speak / I'm talking", ja_trans: "話します", ja_explanation: "会話の基本動詞です。", level: "Beginner" },
+  { id: "G-032", category: "行動", title: "聞く", sw_phrase: "들어요 deureoyo", en_phrase: "I listen / I hear", ja_trans: "聞きます", ja_explanation: "聴覚の基本動詞です。", level: "Beginner" },
+  { id: "G-033", category: "行動", title: "買う", sw_phrase: "さよ sayo", en_phrase: "I buy", ja_trans: "買います", ja_explanation: "買い物の基本動詞です。", level: "Beginner" },
+  { id: "G-034", category: "行動", title: "勉強する", sw_phrase: "공부해요 gongbuhaeyo", en_phrase: "I study", ja_trans: "勉強します", ja_explanation: "学習の基本表現です。", level: "Beginner" },
+  { id: "G-035", category: "行動", title: "運動する", sw_phrase: "운동해요 undonghaeyo", en_phrase: "I exercise", ja_trans: "運動します", ja_explanation: "スポーツや活動の表現です。", level: "Beginner" },
+  { id: "G-036", category: "疑問", title: "何", sw_phrase: "뭐 mwo", en_phrase: "What", ja_trans: "何", ja_explanation: "最も多用される疑問詞です。", level: "Beginner" },
+  { id: "G-037", category: "疑問", title: "どこ", sw_phrase: "어디 eodi", en_phrase: "Where", ja_trans: "どこ", ja_explanation: "場所を尋ねる疑問詞です。", level: "Beginner" },
+  { id: "G-038", category: "疑問", title: "いつ", sw_phrase: "언제 eonje", en_phrase: "When", ja_trans: "いつ", ja_explanation: "時間を尋ねる疑問詞です。", level: "Beginner" },
+  { id: "G-039", category: "疑問", title: "誰", sw_phrase: "누구 nugu", en_phrase: "Who", ja_trans: "誰", ja_explanation: "人物を尋ねる疑問詞です。", level: "Beginner" },
+  { id: "G-040", category: "疑問", title: "なぜ", sw_phrase: "왜 wae", en_phrase: "Why", ja_trans: "なぜ", ja_explanation: "理由を尋ねる疑問詞です。", level: "Beginner" },
+  { id: "G-041", category: "助詞", title: "は（主題）", sw_phrase: "은/는 eun/neun", en_phrase: "Topic marker (am/is/are)", ja_trans: "〜は", ja_explanation: "文章の主題を表す助詞です。", level: "Beginner" },
+  { id: "G-042", category: "助詞", title: "が（主格）", sw_phrase: "이/가 i/ga", en_phrase: "Subject marker", ja_trans: "〜が", ja_explanation: "動作の主体を表す助詞です。", level: "Beginner" },
+  { id: "G-043", category: "助詞", title: "を（目的格）", sw_phrase: "을/를 eul/reul", en_phrase: "Object marker", ja_trans: "〜を", ja_explanation: "動作の対象を表す助詞です。", level: "Beginner" },
+  { id: "G-044", category: "助詞", title: "に/で（場所）", sw_phrase: "에/에서 e/eseo", en_phrase: "At / In / To", ja_trans: "〜に / 〜で", ja_explanation: "場所や方向を表す助詞です。", level: "Beginner" },
+  { id: "G-045", category: "助詞", title: "も", sw_phrase: "도 do", en_phrase: "Also / Too", ja_trans: "〜も", ja_explanation: "添加を表す助詞です。", level: "Beginner" },
+  { id: "G-046", category: "文末", title: "です（丁寧・公的）", sw_phrase: "...입니다 ...imnida", en_phrase: "It is ... (Formal)", ja_trans: "〜です", ja_explanation: "丁寧でかしこまった断定表現です。", level: "Beginner" },
+  { id: "G-047", category: "文末", title: "ですか？（公的）", sw_phrase: "...입니까? ...imnikka?", en_phrase: "Is it ...? (Formal)", ja_trans: "〜ですか？", ja_explanation: "丁寧でかしこまった疑問表現です。", level: "Beginner" },
+  { id: "G-048", category: "文末", title: "です（丁寧・日常）", sw_phrase: "이에요/예요 ieyo/yeyo", en_phrase: "It is ... (Polite)", ja_trans: "〜です", ja_explanation: "日常会話で最も使われる丁寧な表現です。", level: "Beginner" },
+  { id: "G-049", category: "文末", title: "あります/います", sw_phrase: "있어요 isseoyo", en_phrase: "There is / I have", ja_trans: "あります / います", ja_explanation: "存在や所有を表す重要な表現です。", level: "Beginner" },
+  { id: "G-050", category: "文末", title: "ないです/いないです", sw_phrase: "없어요 eopseoyo", en_phrase: "There isn't / I don't have", ja_trans: "ないです / いないです", ja_explanation: "存在や所有の否定です。", level: "Beginner" },
+  { id: "G-051", category: "数", title: "ひとつ", sw_phrase: "하나 hana", en_phrase: "One (Native)", ja_trans: "１つ", ja_explanation: "固有数詞（数を数える時）の１です。", level: "Beginner" },
+  { id: "G-052", category: "数", title: "ふたつ", sw_phrase: "둘 dul", en_phrase: "Two (Native)", ja_trans: "２つ", ja_explanation: "固有数詞の２です。", level: "Beginner" },
+  { id: "G-053", category: "数", title: "みっつ", sw_phrase: "셋 set", en_phrase: "Three (Native)", ja_trans: "３つ", ja_explanation: "固有数詞の３です。", level: "Beginner" },
+  { id: "G-054", category: "家族", title: "お父さん", sw_phrase: "아버지 abeoji", en_phrase: "Father", ja_trans: "お父さん", ja_explanation: "父親を呼ぶ丁寧な言葉です。", level: "Beginner" },
+  { id: "G-055", category: "家族", title: "お母さん", sw_phrase: "어머니 eomeoni", en_phrase: "Mother", ja_trans: "お母さん", ja_explanation: "母親を呼ぶ丁寧な言葉です。", level: "Beginner" },
+  { id: "G-056", category: "接続", title: "そして", sw_phrase: "그리고 geurigo", en_phrase: "And", ja_trans: "そして", ja_explanation: "文章をつなぐ順接の接続詞です。", level: "Beginner" },
+  { id: "G-057", category: "接続", title: "でも/しかし", sw_phrase: "하지만 hajiman", en_phrase: "But / However", ja_trans: "でも / しかし", ja_explanation: "文章をつなぐ逆接の接続詞です。", level: "Beginner" },
+  { id: "G-058", category: "接続", title: "だから", sw_phrase: "그래서 geuraeseo", en_phrase: "So / Therefore", ja_trans: "だから", ja_explanation: "理由から結論へつなぐ接続詞です。", level: "Beginner" },
+  { id: "G-059", category: "願望", title: "したいです", sw_phrase: "...고 싶어요 ...go sipeoyo", en_phrase: "I want to ...", ja_trans: "〜したいです", ja_explanation: "自分の希望を伝える動詞の活用形です。", level: "Beginner" },
+  { id: "G-060", category: "否定", title: "〜しません（意志）", sw_phrase: "안 ... an ...", en_phrase: "Do not ...", ja_trans: "〜しません / 〜くない", ja_explanation: "動詞や形容詞の前に置いて否定を作ります。", level: "Beginner" },
+  { id: "G-061", category: "行動", title: "～できる（可能）", sw_phrase: "...ㄹ/을 수 있어요 ...l/eul su isseoyo", en_phrase: "Can do ...", ja_trans: "〜することができます", ja_explanation: "能力や可能性を表す表現です。", level: "Intermediate" },
+  { id: "G-062", category: "行動", title: "～できない（不可能）", sw_phrase: "...ㄹ/을 수 없어요 ...l/eul su eopseoyo", en_phrase: "Cannot do ...", ja_trans: "〜することができません", ja_explanation: "不可能な状況を表します。", level: "Intermediate" },
+  { id: "G-063", category: "行動", title: "～してください", sw_phrase: "...해 주세요 ...hae juseyo", en_phrase: "Please do ...", ja_trans: "〜してください", ja_explanation: "相手に何かを依頼する丁寧な表現です。", level: "Beginner" },
+  { id: "G-064", category: "行動", title: "～している（進行）", sw_phrase: "...고 있어요 ...go isseoyo", en_phrase: "Am/Is/Are doing ...", ja_trans: "〜しています", ja_explanation: "現在進行中の動作を表します。", level: "Intermediate" },
+  { id: "G-065", category: "過去", title: "～しました（過去形）", sw_phrase: "...았/었어요 ...at/eosseoyo", en_phrase: "Did ...", ja_trans: "〜しました / 〜かった", ja_explanation: "過去の動作や状態を表す基本形です。", level: "Beginner" },
+  { id: "G-066", category: "時間", title: "～の前に", sw_phrase: "...기 전에 ...gi jeone", en_phrase: "Before doing ...", ja_trans: "〜する前に", ja_explanation: "動作の前後関係を表します。", level: "Intermediate" },
+  { id: "G-067", category: "時間", title: "～した後に", sw_phrase: "...ㄴ/은 후에 ...n/eun huye", en_phrase: "After doing ...", ja_trans: "〜した後に", ja_explanation: "完了した後の動作を表します。", level: "Intermediate" },
+  { id: "G-068", category: "比較", title: "～より（比較）", sw_phrase: "...보다 ...boda", en_phrase: "Than ...", ja_trans: "〜より", ja_explanation: "2つのものを比較する時の助詞です。", level: "Intermediate" },
+  { id: "G-069", category: "比較", title: "一番/もっとも", sw_phrase: "가장 / 제일 gajang / jeil", en_phrase: "The most / Best", ja_trans: "一番 / 最も", ja_explanation: "最上級を表す副詞です。", level: "Intermediate" },
+  { id: "G-070", category: "義務", title: "～しなければならない", sw_phrase: "...해야 돼요 ...haeya dwaeyo", en_phrase: "Must do ... / Have to ...", ja_trans: "〜しなければなりません", ja_explanation: "義務や必要性を表す表現です。", level: "Intermediate" },
+  { id: "G-071", category: "推量", title: "～だと思います", sw_phrase: "... 것 같아요 ... geot gatayo", en_phrase: "I think ... / It seems ...", ja_trans: "〜だと思います / 〜のようです", ja_explanation: "自分の意見を柔らかく伝える表現です。", level: "Intermediate" },
+  { id: "G-072", category: "理由", title: "～だから（理由）", sw_phrase: "...기 때문에 ...gi ttaemune", en_phrase: "Because ...", ja_trans: "〜なので / 〜だから", ja_explanation: "明確な理由を述べる時に使います。", level: "Intermediate" },
+  { id: "G-073", category: "経験", title: "～したことがあります", sw_phrase: "...ㄴ/은 적이 있어요 ...n jeoki isseoyo", en_phrase: "Have done ... before", ja_trans: "〜したことがあります", ja_explanation: "過去の経験を話す時の表現です。", level: "Intermediate" },
+  { id: "G-074", category: "禁止", title: "～しないでください", sw_phrase: "...지 마세요 ...ji maseyo", en_phrase: "Please don't do ...", ja_trans: "〜しないでください", ja_explanation: "相手に禁止をお願いする表現です。", level: "Intermediate" },
+  { id: "G-075", category: "試行", title: "～してみます", sw_phrase: "...해 볼게요 ...hae bolgeyo", en_phrase: "I'll try doing ...", ja_trans: "〜してみます", ja_explanation: "新しいことに挑戦する時の表現です。", level: "Intermediate" },
+  { id: "G-076", category: "許可", title: "～してもいいですか", sw_phrase: "...해도 돼요? ...haedo dwaeyo?", en_phrase: "May I do ...?", ja_trans: "〜してもいいですか？", ja_explanation: "許可を求める時の表現です。", level: "Intermediate" },
+  { id: "G-077", category: "状態", title: "大丈夫です", sw_phrase: "괜찮아요 gwaenchanayo", en_phrase: "It's okay", ja_trans: "大丈夫です", ja_explanation: "承諾や断りなど幅広く使えます。", level: "Beginner" },
+  { id: "G-078", category: "状態", title: "難しいです", sw_phrase: "어려워요 eoryeowoyo", en_phrase: "It's difficult", ja_trans: "難しいです", ja_explanation: "難易度を表す形容詞です。", level: "Beginner" },
+  { id: "G-079", category: "状態", title: "易しい/簡単です", sw_phrase: "쉬워요 swiwoyo", en_phrase: "It's easy", ja_trans: "簡単です", ja_explanation: "難易度を表す形容詞です。", level: "Beginner" },
+  { id: "G-080", category: "場所", title: "ここ", sw_phrase: "여기 yeogi", en_phrase: "Here", ja_trans: "ここ", ja_explanation: "話し手に近い場所を指します。", level: "Beginner" },
+  { id: "G-081", category: "場所", title: "そこ", sw_phrase: "거기 geogi", en_phrase: "There", ja_trans: "そこ", ja_explanation: "聞き手に近い場所を指します。", level: "Beginner" },
+  { id: "G-082", category: "場所", title: "あそこ", sw_phrase: "저기 jeogi", en_phrase: "Over there", ja_trans: "あそこ", ja_explanation: "両者から遠い場所を指します。", level: "Beginner" },
+  { id: "G-083", category: "頻度", title: "いつも", sw_phrase: "항상 hangsang", en_phrase: "Always", ja_trans: "いつも", ja_explanation: "100%の頻度を表します。", level: "Intermediate" },
+  { id: "G-084", category: "頻度", title: "ときどき", sw_phrase: "가끔 gakkeum", en_phrase: "Sometimes", ja_trans: "ときどき", ja_explanation: "たまに起こる頻度を表します。", level: "Intermediate" },
+  { id: "G-085", category: "感嘆", title: "本当ですか？", sw_phrase: "정말이에요? jeongmalieyo?", en_phrase: "Really?", ja_trans: "本当ですか？", ja_explanation: "相槌や確認に使う便利な言葉です。", level: "Beginner" },
+  { id: "G-086", category: "意思", title: "そうします", sw_phrase: "그럴게요 geureolgeyo", en_phrase: "I will do so", ja_trans: "そうします", ja_explanation: "相手の提案に応じる時の表現です。", level: "Intermediate" },
+  { id: "G-087", category: "程度", title: "少し/ちょっと", sw_phrase: "조금 jogeum", en_phrase: "A little", ja_trans: "少し", ja_explanation: "量や程度が少ないことを表します。", level: "Beginner" },
+  { id: "G-088", category: "程度", title: "とても", sw_phrase: "매우 / 아주 maeu / aju", en_phrase: "Very", ja_trans: "とても / 非常に", ja_explanation: "程度を強調する表現です。", level: "Beginner" },
+  { id: "G-089", category: "意志", title: "～するつもりです", sw_phrase: "...ㄹ/을 거예요 ...l/eul geoyeyo", en_phrase: "I will ... / I'm going to ...", ja_trans: "〜するつもりです / 〜でしょう", ja_explanation: "未来の計画や推測を表します。", level: "Intermediate" },
+  { id: "G-090", category: "謙譲", title: "お会いできて光栄です", sw_phrase: "뵙게 되어 영광입니다 boepge dwoieo yeonggwangimnida", en_phrase: "It's an honor to meet you", ja_trans: "お目にかかれて光栄です", ja_explanation: "非常に丁寧な初対面の挨拶です。", level: "Advanced" },
+  { id: "G-091", category: "日常", title: "何してたの？", sw_phrase: "뭐 하고 있었어요? mwo hago isseosseoyo?", en_phrase: "What were you doing?", ja_trans: "何していましたか？", ja_explanation: "過去の進行状況を尋ねる会話表現です。", level: "Intermediate" },
+  { id: "G-092", category: "依頼", title: "手伝ってください", sw_phrase: "좀 도와주세요 jom dowajuseyo", en_phrase: "Please help me", ja_trans: "ちょっと手伝ってください", ja_explanation: "助けを求める時の丁寧な言い方です。", level: "Intermediate" },
+  { id: "G-093", category: "別れ", title: "また連絡します", sw_phrase: "나중에 연락할게요 najunge yeollakalgeyo", en_phrase: "I'll contact you later", ja_trans: "後で連絡しますね", ja_explanation: "別れ際の定番の挨拶です。", level: "Intermediate" },
+  { id: "G-094", category: "別れ", title: "気をつけて", sw_phrase: "조심해서 가세요 josimhaeseo gaseyo", en_phrase: "Go home safely", ja_trans: "気をつけて帰ってください", ja_explanation: "相手を気遣う別れ際の言葉です。", level: "Beginner" },
+  { id: "G-095", category: "日常", title: "ちょうどよかった", sw_phrase: "마침 잘 됐네요 machim jal dwaenneyo", en_phrase: "That's perfect / Just in time", ja_trans: "ちょうどよかったです", ja_explanation: "タイミングが良い時に使います。", level: "Advanced" },
+  { id: "G-096", category: "日常", title: "正直に言うと", sw_phrase: "솔직히 말하면 soljikhi malhamyeon", en_phrase: "To be honest", ja_trans: "正直に言うと", ja_explanation: "本音を切り出す時の枕詞です。", level: "Advanced" },
+  { id: "G-097", category: "日常", title: "どっちでもいいよ", sw_phrase: "둘 다 괜찮아요 dul da gwaenchanayo", en_phrase: "Both are fine", ja_trans: "どちらでも大丈夫です", ja_explanation: "選択を任せる時の返答です。", level: "Intermediate" },
+  { id: "G-098", category: "感謝", title: "おかげさまで", sw_phrase: "덕분에 deokbune", en_phrase: "Thanks to you", ja_trans: "おかげさまで", ja_explanation: "感謝を伝える時の枕詞です。", level: "Intermediate" },
+  { id: "G-099", category: "強調", title: "絶対に", sw_phrase: "절대로 jeoldaero", en_phrase: "Never / Absolutely", ja_trans: "絶対に", ja_explanation: "否定文と合わせて「決して〜ない」等に使います。", level: "Advanced" },
+  { id: "G-100", category: "終焉", title: "お疲れ様でした", sw_phrase: "수고하셨습니다 sugohasyeotseumnida", en_phrase: "Great job / Well done", ja_trans: "お疲れ様でした", ja_explanation: "仕事や作業が終わった後のねぎらいの言葉です。", level: "Beginner" },
+  ];
+  
+let currentLevel = 'Beginner';
+let vIndex = 0;
+let gIndex = 0;
+let isGrammarMode = false;
+let qTarget = null;
+
+// 音声合成用の窓口を一つに固定して定義
+const synth = window.speechSynthesis;
+let utterance = new SpeechSynthesisUtterance();
+
+function showView(id) {
+  ['home','grammar-choice','vocabulary','grammar','quest'].forEach(v=>{
+    const el = document.getElementById(v + '-view');
+    if(el) el.classList.add('hidden');
+  });
+  document.getElementById(id + '-view').classList.remove('hidden');
+  window.scrollTo(0,0);
+  if(id === 'vocabulary') updateWord();
+  if(id === 'grammar') updateGrammar();
+}
+
+/* 単語学習ロジック（原本復元） */
+function setVocabLevel(lvl, btn) {
+  currentLevel = lvl;
+  vIndex = 0;
+  document.querySelectorAll('#v-level-selector .btn-lvl').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  updateWord();
+}
+
+function updateWord() {
+  const list = (currentLevel === 'All') ? vocabularyData : vocabularyData.filter(d => d.level === currentLevel);
+  if(!list.length) return;
+  const d = list[vIndex % list.length];
+  document.getElementById('v-en').innerText = d.en;
+  document.getElementById('v-ko').innerText = d.sw;
+  document.getElementById('v-ja').innerText = d.ja;
+  document.getElementById('v-emoji').innerText = d.emoji;
+  document.getElementById('v-lvl-badge').innerText = d.level;
+  document.getElementById('v-cat-badge').innerText = d.category;
+}
+
+function changeWord(s) {
+  const list = (currentLevel === 'All') ? vocabularyData : vocabularyData.filter(d => d.level === currentLevel);
+  vIndex = (vIndex + s + list.length) % list.length;
+  updateWord();
+}
+
+function shuffleWords() {
+  const list = (currentLevel === 'All') ? vocabularyData : vocabularyData.filter(d => d.level === currentLevel);
+  vIndex = Math.floor(Math.random() * list.length);
+  updateWord();
+}
+
+/* 文法学習ロジック（修正版） */
+function updateGrammar() {
+  const list = grammarData.filter(d => d.level === currentLevel);
+  if(!list.length) { 
+    alert("このレベルのデータはまだありません"); 
+    showView('grammar-choice'); 
+    return; 
+  }
+  const d = list[gIndex % list.length];
+
+  // 画面へのセット（d.sw_phrase を確実にセット）
+  document.getElementById('g-en').innerText = d.en_phrase || "";
+  document.getElementById('g-ko').innerText = d.sw_phrase || ""; 
+  document.getElementById('g-ja').innerText = d.ja_trans || "";
+  document.getElementById('g-exp').innerText = d.ja_explanation || "";
+  document.getElementById('g-cat-badge').innerText = d.category || d.title || "";
+
+  // 【重要】もしこれでも鳴らない場合のために、コンソールでデータを確認する命令（テスト用）
+  console.log("現在の文法データ:", d.sw_phrase);
+}
+
+function changeGrammar(s) {
+  const list = grammarData.filter(d => d.level === currentLevel);
+  gIndex = (gIndex + s + list.length) % list.length;
+  updateGrammar();
+}
+
+function shuffleGrammar() {
+  const list = grammarData.filter(d => d.level === currentLevel);
+  gIndex = Math.floor(Math.random() * list.length);
+  updateGrammar();
+}
+
+function showGrammarView() { gIndex = 0; showView('grammar'); }
+
+/* クエストロジック（最新統合） */
+function startQuestMode() { isGrammarMode = false; showView('quest'); setTimeout(generateQuest, 100); }
+function startGrammarQuest() { isGrammarMode = true; showView('quest'); setTimeout(generateQuest, 100); }
+
+function generateQuest() {
+  let list = isGrammarMode ? grammarData : vocabularyData;
+  qTarget = list[Math.floor(Math.random() * list.length)];
+  document.getElementById('quest-title').innerText = isGrammarMode ? "🧠 文法聞き取りクエスト" : "🔤 単語聞き取りクエスト";
+  document.getElementById('q-box').innerHTML = `<button class="btn" onclick="speakQ()" style="width:130px; height:130px; font-size:4.5rem; border-radius:50%; background:var(--primary-color); color:white; border:none; box-shadow:0 6px 20px rgba(0,0,0,0.15);">🔊</button><p style="margin-top:15px; font-weight:bold; color:#64748b;">音を聞いて正しい意味を選んでね</p>`;
+  
+  let choices = [qTarget];
+  while(choices.length < 4 && choices.length < list.length) {
+    let r = list[Math.floor(Math.random() * list.length)];
+    if(!choices.includes(r)) choices.push(r);
+  }
+  choices.sort(() => Math.random() - 0.5);
+  const area = document.getElementById('a-grid');
+  area.innerHTML = "";
+  choices.forEach(c => {
+    const b = document.createElement('button');
+    b.className = 'btn btn-lvl';
+    b.style.minHeight = '85px';
+    b.innerText = isGrammarMode ? c.ja_trans : c.ja;
+    b.onclick = () => { 
+      if(c === qTarget){ alert("🎉 正解！"); generateQuest(); } 
+      else { alert("❌ 残念！もう一回聞いてみて！"); } 
+    };
+    area.appendChild(b);
+  });
+  speakQ();
+}
+
+function speakQ() {
+  synth.cancel(); // 外で定義した synth を使う
+  if (!qTarget) return;
+
+  // 文法モードか単語モードかでテキストを切り替え
+  let text = isGrammarMode ? qTarget.sw_phrase : qTarget.sw;
+  
+  // ハングル以外（英語やカッコ）をきれいに掃除
+  text = text.replace(/\([^)]*\)/g, '').replace(/\[[^\]]*\]/g, '');
+  text = text.replace(/[^가-힣ㄱ-ㅎㅏ-ㅣ0-9\s\.\?\!]/g, '');
+  
+  // 外で定義した utterance に中身をセット
+  utterance.text = text.trim();
+  utterance.lang = 'ko-KR';
+  utterance.rate = 0.8;
+
+  // スマホでの不具合を防ぐために少し待ってから再生
+  setTimeout(() => {
+    synth.speak(utterance);
+  }, 50);
+}
+
+function speakLocal(id, lang) {
+  // 1. 再生中の音声を停止
+  synth.cancel();
+
+  const el = document.getElementById(id);
+  if (!el) return;
+  let text = el.innerText;
+
+  // 2. テキストの洗浄
+  if (lang === 'ko') {
+    // カッコ書きを削除
+    text = text.replace(/\([^)]*\)/g, '').replace(/\[[^\]]*\]/g, '');
+    
+    // 【ここを修正】アルファベットの発音ルビだけを狙い撃ちして削除し、ハングルは残す
+    // 文末に続くアルファベットの羅列を消去
+    text = text.replace(/[a-zA-Z\s]{5,}/g, ''); 
+  }
+
+  // 3. 設定の流し込み
+  utterance.text = text.trim();
+  utterance.lang = (lang === 'ko') ? 'ko-KR' : (lang === 'en' ? 'en-US' : 'ja-JP');
+  utterance.rate = 0.8;
+
+  // 4. 再生（少し待つのがコツ）
+  setTimeout(() => {
+    // 洗浄後のテキストが空っぽじゃない時だけ再生
+    if (utterance.text.length > 0) {
+      synth.speak(utterance);
+    } else {
+      // 万が一空っぽになったら、元のテキストをそのまま流す（予備動作）
+      utterance.text = el.innerText;
+      synth.speak(utterance);
+    }
+  }, 50);
+}
+</script>
+</body>
+</html>
