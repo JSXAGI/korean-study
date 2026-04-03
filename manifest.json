@@ -1,0 +1,21 @@
+{
+  "name": "韓国語学習アプリ",
+  "short_name": "韓国語学習",
+  "description": "オフライン対応の韓国語学習アプリ",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#fef3c7",
+  "theme_color": "#f59e0b",
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/JSXAGI/korean-study/main/korean.jpeg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "https://raw.githubusercontent.com/JSXAGI/korean-study/main/korean.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}
