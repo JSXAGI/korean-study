@@ -3,7 +3,8 @@ const urlsToCache = [
   './',
   './index.html',
   './style.css',
-  './data.js'
+  './data.js',
+  './icon.png'  // ←ここにアイコンのファイル名を追加！
 ];
 
 // インストール時にファイルをキャッシュ
